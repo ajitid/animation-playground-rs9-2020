@@ -1,0 +1,64 @@
+{
+  "name": "playing-with-react-spring",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start:cra": "react-scripts start",
+    "start:tw": "postcss ./src/styles/tailwind-for-postcss.css -o ./src/styles/tailwind.css -w",
+    "start": "concurrently \"npm:start:*\"",
+    "build:tw": "postcss ./src/styles/tailwind-for-postcss.css -o ./src/styles/tailwind.css --env production",
+    "build:cra": "react-scripts build",
+    "build": "npm run build:tw & npm run build:cra",
+    "lint": "eslint src/**/*.ts src/**/*.tsx",
+    "format": "prettier --write src/**/*.ts src/**/*.tsx src/**/*.css src/**/*.json",
+    "test": "react-scripts test",
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
+    "eject": "react-scripts eject"
+  },
+  "dependencies": {
+    "@popmotion/popcorn": "^0.4.4",
+    "@react-spring/web": "^9.0.0-rc.3",
+    "classnames": "^2.2.6",
+    "nanoid": "^3.1.5",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-feather": "^2.0.8",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "3.4.1",
+    "react-use-gesture": "^7.0.15",
+    "simplebar-react": "^2.2.0",
+    "typescript": "^3.7.5",
+    "use-media": "^1.4.0"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.5.0",
+    "@testing-library/user-event": "^7.2.1",
+    "@types/classnames": "^2.2.10",
+    "@types/jest": "^24.9.1",
+    "@types/node": "^12.12.37",
+    "@types/react": "^16.9.34",
+    "@types/react-dom": "^16.9.7",
+    "@types/react-router-dom": "^5.1.5",
+    "concurrently": "^5.2.0",
+    "eslint-config-prettier": "^6.11.0",
+    "postcss-cli": "^7.1.1",
+    "postcss-import": "^12.0.1",
+    "postcss-preset-env": "^6.7.0",
+    "prettier": "^2.0.5",
+    "source-map-explorer": "^2.4.2",
+    "tailwindcss": "^1.4.4"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
