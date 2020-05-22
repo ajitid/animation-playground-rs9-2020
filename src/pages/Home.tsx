@@ -14,6 +14,21 @@ const Home = () => {
           <li>
             <Link to="/slider">Slider</Link>
           </li>
+          <li>
+            <Link to="/keyframes">Keyframes</Link>
+          </li>
+          <li>
+            <Link to="/keyframes">Sequential animation</Link>
+          </li>
+          <li>
+            <Link to="/slider">Delay</Link>
+          </li>
+          <li>
+            <Link to="/slider">Variants</Link>
+          </li>
+          <li>
+            <Link to="/slider">Slider</Link>
+          </li>
         </ul>
       </div>
     </DefaultLayout>
