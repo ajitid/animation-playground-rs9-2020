@@ -18,6 +18,9 @@ const Home = () => {
             <Link to="/keyframes">Keyframes</Link>
           </li>
           <li>
+            <Link to="/from-state">From state</Link>
+          </li>
+          <li>
             <Link to="/keyframes">Sequential animation</Link>
           </li>
           <li>

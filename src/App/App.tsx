@@ -10,6 +10,7 @@ import Home from 'pages/Home';
 import Mount from 'pages/Mount';
 import Slider from 'pages/Slider';
 import Keyframes from 'pages/Keyframes';
+import FromState from 'pages/FromState';
 
 function App() {
   return (
@@ -28,6 +29,9 @@ function App() {
           </Route>
           <Route exact path="/keyframes">
             <Keyframes />
+          </Route>
+          <Route exact path="/from-state">
+            <FromState />
           </Route>
           <Route path="*">
             <h1>Not Found</h1>

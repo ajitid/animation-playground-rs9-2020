@@ -12,14 +12,12 @@ const Keyframes = () => {
     x: 1,
   });
 
-  const [big, setBig] = useState(false);
-  const bigStyles = useSpring({ fontSize: big ? 64 : 16 });
-
   const rotate = x
     .to({
       range: [0, 1],
       output: [0, -40],
     })
+    // @ts-ignore
     .to(x => `rotate(${x}deg)`);
 
   return (
@@ -66,14 +64,6 @@ const Keyframes = () => {
           >
             <span className="ml-2">stuff</span>
           </ani.div>
-        </ani.div>
-      </div>
-      <div className="container mx-auto">
-        <div>
-          <Button onClick={() => setBig(b => !b)}>Toggle size</Button>
-        </div>
-        <ani.div style={bigStyles} className="inline-block">
-          could be smol, could be big
         </ani.div>
       </div>
     </DefaultLayout>
