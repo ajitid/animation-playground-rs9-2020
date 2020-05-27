@@ -11,6 +11,7 @@ import Mount from 'pages/Mount';
 import Slider from 'pages/Slider';
 import Keyframes from 'pages/Keyframes';
 import FromState from 'pages/FromState';
+import Sequential from 'pages/Sequential';
 
 function App() {
   return (
@@ -32,6 +33,9 @@ function App() {
           </Route>
           <Route exact path="/from-state">
             <FromState />
+          </Route>
+          <Route exact path="/sequential">
+            <Sequential />
           </Route>
           <Route path="*">
             <h1>Not Found</h1>

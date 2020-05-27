@@ -21,16 +21,7 @@ const Home = () => {
             <Link to="/from-state">From state</Link>
           </li>
           <li>
-            <Link to="/keyframes">Sequential animation</Link>
-          </li>
-          <li>
-            <Link to="/slider">Delay</Link>
-          </li>
-          <li>
-            <Link to="/slider">Variants</Link>
-          </li>
-          <li>
-            <Link to="/slider">Slider</Link>
+            <Link to="/sequential">Sequential animation</Link>
           </li>
         </ul>
       </div>

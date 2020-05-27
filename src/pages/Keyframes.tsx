@@ -23,6 +23,9 @@ const Keyframes = () => {
   return (
     <DefaultLayout pageTitle="Keyframes">
       <div className="container mx-auto pt-4">
+        <p className="text-gray-600 leading-tight">
+          Basically map anything you want to animate to [0, 1]
+        </p>
         <ani.div
           className="uppercase mt-32 inline-block text-3xl"
           style={{
