@@ -12,7 +12,7 @@ const FromState = () => {
     <DefaultLayout pageTitle="From state">
       <div className="container mx-auto">
         <p className="pt-4 pb-6">
-          Conditionally changed `to` on the basis of state. Pretty powerful, huh?
+          Conditionally changed `to` on the basis of state. Pretty cool, huh?
         </p>
         <div className="mb-3">
           <Button onClick={() => setBig(b => !b)}>Toggle size</Button>
