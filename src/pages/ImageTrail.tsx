@@ -117,30 +117,4 @@ const ImageTrail = () => {
   );
 };
 
-// const [elements, setElements] = useState();
-
-// const prevPoint = useRef<Tuple<number>>([0, 0]);
-
-// const [{ p }, set] = useSpring<{
-//   p: Tuple<number>;
-// }>(() => ({ p: [0, 0], config: { duration: 2000 } }));
-
-// const bindMove = useMove(
-//   ({ distance, velocity, xy, vxvy, delta, movement, last }) => {
-
-// const [// p.
-//     // if (last) {
-//     //   set({p: [0,0]})
-//     // }
-//   },
-//   {
-//     domTarget: window,
-//   }
-// );
-
-// useEffect(bindMove, [bindMove]);
-
-// {/* <p className="mb-6 text-gray-600 leading-tight">
-//   Conditionally changed `to` on the basis of a state. Cool, eh?
-// </p> */}
 export default ImageTrail;
