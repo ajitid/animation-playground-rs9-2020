@@ -50,7 +50,7 @@ const ImageTrail = () => {
             y: xy[1],
           },
           { x: previousPointRef.current[0], y: previousPointRef.current[1] }
-        ) > 50
+        ) > 60
       ) {
         previousPointRef.current = xy;
         const color = getColorRef.current();
@@ -76,18 +76,24 @@ const ImageTrail = () => {
   useEffect(bindMove, [bindMove]);
 
   const imagesTransition = useTransition(images, {
-    from: {
+    from: item => ({
       scale: 0.8,
       opacity: 0.4,
-    },
-    enter: {
+      x: item.xy[0],
+      y: item.xy[1],
+    }),
+    enter: item => ({
       scale: 1,
       opacity: 1,
-    },
-    leave: {
+      x: item.vxvy[0] * 30 + item.xy[0],
+      y: item.vxvy[1] * 30 + item.xy[1],
+    }),
+    leave: item => ({
       scale: 1,
       opacity: 0,
-    },
+      x: item.vxvy[0] * 30 + item.xy[0],
+      y: item.vxvy[1] * 30 + item.xy[1],
+    }),
     onRest: (data, state) => {
       const id = state.item.id;
       if (!id) return;
@@ -105,8 +111,12 @@ const ImageTrail = () => {
   const imagesToRender = imagesTransition((style, img) => (
     <a.div
       key={img.id}
-      style={{ ...style, x: img.xy[0], y: img.xy[1], background: img.color }}
-      className="w-64 h-64 absolute inline-block"
+      style={{
+        ...style,
+        transform: `translate(-50%, -50%)`,
+        background: img.color,
+      }}
+      className="w-48 h-64 absolute inline-block"
     />
   ));
 
