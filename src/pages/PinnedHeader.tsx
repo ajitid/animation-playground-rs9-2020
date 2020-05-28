@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { a, useSpring } from '@react-spring/web';
 import { useScroll } from 'react-use-gesture';
+import { interpolate } from '@popmotion/popcorn';
 
 import DefaultLayout from 'layouts/DefaultLayout';
 
@@ -10,20 +11,13 @@ import css from './pinned-header.module.css';
 
 const PinnedHeader = () => {
   const [styles, set] = useSpring(() => ({
-    height: 82,
-    config: {
-      easing: t => t * t * t,
-      // duration: 400,
-    },
+    height: 120,
   }));
 
   const scrollBind = useScroll(
     ({ xy: [_, y] }) => {
-      if (y > 40) {
-        set({ height: 56 });
-      } else {
-        set({ height: 82 });
-      }
+      const height = interpolate([0, 200], [120, 32])(y) as number;
+      set({ height });
     },
     {
       domTarget: window,
