@@ -26,6 +26,9 @@ const Home = () => {
           <li>
             <Link to="/trail">Image trail</Link>
           </li>
+          <li>
+            <Link to="/pinned-header">Pinned header</Link>
+          </li>
         </ul>
       </div>
     </DefaultLayout>

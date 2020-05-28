@@ -40,7 +40,7 @@ const ImageTrail = () => {
 
   const [images, setImages] = useState<Array<ImageShape>>([]);
 
-  const previousPointRef = useRef([0, 0]);
+  const previousImagePointRef = useRef([0, 0]);
   const lastZIndex = useRef(0);
 
   const bindMove = useMove(
@@ -51,10 +51,10 @@ const ImageTrail = () => {
             x: xy[0],
             y: xy[1],
           },
-          { x: previousPointRef.current[0], y: previousPointRef.current[1] }
+          { x: previousImagePointRef.current[0], y: previousImagePointRef.current[1] }
         ) > 60
       ) {
-        previousPointRef.current = xy;
+        previousImagePointRef.current = xy;
         const color = getColorRef.current();
         lastZIndex.current += 1;
         const zIndex = lastZIndex.current;
