@@ -12,6 +12,7 @@ import Slider from 'pages/Slider';
 import Keyframes from 'pages/Keyframes';
 import FromState from 'pages/FromState';
 import Sequential from 'pages/Sequential';
+import ImageTrail from 'pages/ImageTrail';
 
 function App() {
   return (
@@ -36,6 +37,9 @@ function App() {
           </Route>
           <Route exact path="/sequential">
             <Sequential />
+          </Route>
+          <Route exact path="/trail">
+            <ImageTrail />
           </Route>
           <Route path="*">
             <h1>Not Found</h1>

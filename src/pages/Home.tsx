@@ -23,6 +23,9 @@ const Home = () => {
           <li>
             <Link to="/sequential">Sequential animation</Link>
           </li>
+          <li>
+            <Link to="/trail">Image trail</Link>
+          </li>
         </ul>
       </div>
     </DefaultLayout>

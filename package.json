@@ -16,6 +16,7 @@
     "eject": "react-scripts eject"
   },
   "dependencies": {
+    "@popmotion/popcorn": "^0.4.4",
     "@react-spring/web": "^9.0.0-rc.3",
     "classnames": "^2.2.6",
     "nanoid": "^3.1.5",
