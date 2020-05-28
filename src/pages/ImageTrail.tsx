@@ -6,6 +6,8 @@ import { nanoid } from 'nanoid';
 
 import DefaultLayout from 'layouts/DefaultLayout';
 
+// recreated https://twitter.com/mattgperry/status/1159116421080788992
+
 const setupGetColor = () => {
   // from https://yeun.github.io/open-color/
   const colors = [
