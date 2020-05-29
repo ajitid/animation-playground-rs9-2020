@@ -1,12 +1,13 @@
-import React, { useState, useRef, useEffect, ReactNode, CSSProperties } from 'react';
-import { a, useSpring, useTransition } from '@react-spring/web';
-import { interpolate } from '@popmotion/popcorn';
+import React, { useState, ReactNode, CSSProperties } from 'react';
+import { a, useTransition } from '@react-spring/web';
 import { Plus, X } from 'react-feather';
 import { nanoid } from 'nanoid';
 
 import DefaultLayout from 'layouts/DefaultLayout';
 import Button from 'elements/atoms/Button';
-import { noop, logWithOr } from 'utils/helpers';
+import usePreviousValue from 'hooks/usePreviousValue';
+
+// recreated https://twitter.com/mattgperry/status/1151086681484865536
 
 const Notification: React.FC<{
   id: string;
@@ -37,7 +38,9 @@ interface NotificationShape {
 
 // Portals can define the heirarchy correctly
 const Notifications: React.FC = () => {
+  const [slow, setSlow] = useState(false);
   const [notifications, setNotifications] = useState<Array<NotificationShape>>(() => []);
+  const prevNotifications = usePreviousValue(notifications);
 
   const createNotification = () => {
     const id = nanoid();
@@ -63,34 +66,39 @@ const Notifications: React.FC = () => {
   const notificationHeight = 78;
   let containerHeight = notificationHeight * (notifications.length - 1);
 
-  const notifsTrans = useTransition(notifications, {
-    from: {
-      scale: 0.9,
-      opacity: 0.4,
-    },
-    enter: (d, i) => ({
-      scale: 1,
-      opacity: 1,
-      y: -(containerHeight - notificationHeight * i),
-    }),
-    update: (d, i) => {
-      return { y: -(containerHeight - notificationHeight * i), config: { duration: 2000 } };
-    },
-    leave: {
-      scale: 0.6,
-      opacity: 0,
-    },
-    key: v => v.id,
-    config: {
-      duration: 200,
-    },
-  });
+  const notifsTrans = useTransition(
+    notifications.map((n, i) => ({ ...n, zIndex: notifications.length - i })),
+    {
+      from: {
+        scale: 0.9,
+        opacity: 0.4,
+      },
+      enter: (d, i) => ({
+        scale: 1,
+        opacity: 1,
+        y: -(containerHeight - notificationHeight * i),
+      }),
+      update: (d, i) => {
+        const pi = prevNotifications.findIndex(n => n.id === d.id);
+        return {
+          y: -(containerHeight - notificationHeight * (pi !== -1 ? pi : i)),
+        };
+      },
+      leave: {
+        scale: 0.6,
+        opacity: 0,
+        zIndex: 0,
+      },
+      key: v => v.id,
+      config: { duration: slow ? 5000 : 200 },
+    }
+  );
 
   const notifsToRender = notifsTrans((style, notif, _, i) => (
     <Notification
       key={notif.id}
       id={notif.id}
-      style={style}
+      style={{ zIndex: notif.zIndex, ...style }}
       content={notif.content}
       handleClose={() => clearNotification(notif.id)}
     />
@@ -98,14 +106,22 @@ const Notifications: React.FC = () => {
 
   return (
     <DefaultLayout pageTitle="From state">
-      <div className="relative min-h-screen bg-indigo-900">
+      <div className="relative min-h-screen bg-indigo-900 text-white">
         <div className="container mx-auto pt-4">
           <Button LeftIcon={Plus} onClick={createNotification}>
             Create notification
           </Button>
+          <label className="block mt-2">
+            <input
+              type="checkbox"
+              checked={slow}
+              onChange={e => setSlow(e.target.checked)}
+            />{' '}
+            Slow down
+          </label>
         </div>
       </div>
-      <div className="relative">{notifsToRender}</div>
+      {notifsToRender}
     </DefaultLayout>
   );
 };
