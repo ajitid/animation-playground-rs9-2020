@@ -14,6 +14,7 @@ import FromState from 'pages/FromState';
 import Sequential from 'pages/Sequential';
 import ImageTrail from 'pages/ImageTrail';
 import PinnedHeader from 'pages/PinnedHeader';
+import Notifications from 'pages/Notifications';
 
 function App() {
   return (
@@ -44,6 +45,9 @@ function App() {
           </Route>
           <Route exact path="/pinned-header">
             <PinnedHeader />
+          </Route>
+          <Route exact path="/notifications">
+            <Notifications />
           </Route>
           <Route path="*">
             <h1>Not Found</h1>

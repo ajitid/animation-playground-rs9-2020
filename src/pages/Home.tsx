@@ -29,6 +29,9 @@ const Home = () => {
           <li>
             <Link to="/pinned-header">Pinned header</Link>
           </li>
+          <li>
+            <Link to="/notifications">Notifications</Link>
+          </li>
         </ul>
       </div>
     </DefaultLayout>

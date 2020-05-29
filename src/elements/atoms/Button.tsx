@@ -45,9 +45,9 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         {...props}
       >
-        {LeftIcon && <LeftIcon size={16} className="mr-2" />}
+        {LeftIcon && <LeftIcon size={16} className="mr-2 inline-block mb-1" />}
         {children}
-        {RightIcon && <RightIcon size={16} className="ml-2" />}
+        {RightIcon && <RightIcon size={16} className="ml-2 inline-block mb-1" />}
       </button>
     );
   }
