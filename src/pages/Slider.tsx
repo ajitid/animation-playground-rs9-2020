@@ -3,7 +3,7 @@ import { a as ani, useSpring } from '@react-spring/web';
 import { useDrag } from 'react-use-gesture';
 
 import DefaultLayout from 'layouts/DefaultLayout';
-import { useBounds } from 'samosa';
+import { useBounds } from 'wannabe-samosa';
 
 const Slider = () => {
   const scrubSize = 40;
