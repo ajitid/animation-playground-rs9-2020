@@ -6,7 +6,7 @@ import { interpolate } from '@popmotion/popcorn';
 import DefaultLayout from 'layouts/DefaultLayout';
 
 import css from './pinned-header.module.css';
-import { useViewportScroll } from 'chaal';
+import { useViewportScroll } from 'flicc';
 
 // recreated https://twitter.com/steveruizok/status/1231516202050043905
 
