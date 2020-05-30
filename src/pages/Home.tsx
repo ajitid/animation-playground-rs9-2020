@@ -32,6 +32,12 @@ const Home = () => {
           <li>
             <Link to="/notifications">Notifications</Link>
           </li>
+          <li>
+            <Link to="/variants">Variants</Link>
+          </li>
+          <li>
+            <Link to="/bottom-sheet">Bottom sheet</Link>
+          </li>
         </ul>
       </div>
     </DefaultLayout>

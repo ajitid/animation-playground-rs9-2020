@@ -16,7 +16,7 @@ const PinnedHeader = () => {
 
   const scrollBind = useScroll(
     ({ xy: [_, y] }) => {
-      const height = interpolate([0, 200], [120, 32])(y) as number;
+      const height = interpolate([0, 200], [80, 32])(y) as number;
       set({ height });
     },
     {

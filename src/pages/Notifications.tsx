@@ -26,7 +26,7 @@ const Notification: React.FC<{
           <X className="text-red-500" size={17} />
         </button>
       </div>
-      <div className="text-sm">{content}</div>
+      <div className="text-sm select-none">{content}</div>
     </a.div>
   );
 };
@@ -90,7 +90,7 @@ const Notifications: React.FC = () => {
         zIndex: 0,
       },
       key: v => v.id,
-      config: { duration: slow ? 5000 : 200 },
+      config: { duration: slow ? 5000 : undefined },
     }
   );
 

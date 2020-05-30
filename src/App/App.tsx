@@ -15,6 +15,8 @@ import Sequential from 'pages/Sequential';
 import ImageTrail from 'pages/ImageTrail';
 import PinnedHeader from 'pages/PinnedHeader';
 import Notifications from 'pages/Notifications';
+import BottomSheet from 'pages/BottomSheet';
+import Variants from 'pages/Variants';
 
 function App() {
   return (
@@ -48,6 +50,12 @@ function App() {
           </Route>
           <Route exact path="/notifications">
             <Notifications />
+          </Route>
+          <Route exact path="/variants">
+            <Variants />
+          </Route>
+          <Route exact path="/bottom-sheet">
+            <BottomSheet />
           </Route>
           <Route path="*">
             <h1>Not Found</h1>
