@@ -1,7 +1,7 @@
 import { useState, RefObject, useLayoutEffect } from 'react';
 
 const useBounds = (ref: RefObject<HTMLElement>, bounderRef: RefObject<HTMLElement>) => {
-  const [axis, set] = useState({
+  const [bounds, set] = useState({
     left: 0,
     right: 0,
     bottom: 0,
@@ -9,7 +9,7 @@ const useBounds = (ref: RefObject<HTMLElement>, bounderRef: RefObject<HTMLElemen
   });
 
   useLayoutEffect(() => {
-    let newAxis = {
+    let newBounds = {
       left: 0,
       right: 0,
       bottom: 0,
@@ -17,14 +17,14 @@ const useBounds = (ref: RefObject<HTMLElement>, bounderRef: RefObject<HTMLElemen
     };
 
     if (!bounderRef.current || !ref.current) {
-      newAxis = {
+      newBounds = {
         left: 0,
         right: 0,
         bottom: 0,
         top: 0,
       };
     } else {
-      newAxis = {
+      newBounds = {
         left: 0,
         right: bounderRef.current.clientWidth - ref.current.clientWidth,
         top: 0,
@@ -32,10 +32,10 @@ const useBounds = (ref: RefObject<HTMLElement>, bounderRef: RefObject<HTMLElemen
       };
     }
 
-    set(newAxis);
+    set(newBounds);
   }, [ref, bounderRef]);
 
-  return axis;
+  return bounds;
 };
 
 export default useBounds;
