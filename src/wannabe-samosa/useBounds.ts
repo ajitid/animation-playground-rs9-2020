@@ -1,28 +1,20 @@
 import { useState, RefObject, useLayoutEffect } from 'react';
 
+interface BoundsShape {
+  left?: number;
+  right?: number;
+  top?: number;
+  bottom?: number;
+}
+
 const useBounds = (ref: RefObject<HTMLElement>, bounderRef: RefObject<HTMLElement>) => {
-  const [bounds, set] = useState({
-    left: 0,
-    right: 0,
-    bottom: 0,
-    top: 0,
-  });
+  const [bounds, set] = useState<BoundsShape>({});
 
   useLayoutEffect(() => {
-    let newBounds = {
-      left: 0,
-      right: 0,
-      bottom: 0,
-      top: 0,
-    };
+    let newBounds: BoundsShape = {};
 
     if (!bounderRef.current || !ref.current) {
-      newBounds = {
-        left: 0,
-        right: 0,
-        bottom: 0,
-        top: 0,
-      };
+      newBounds = {};
     } else {
       newBounds = {
         left: 0,
