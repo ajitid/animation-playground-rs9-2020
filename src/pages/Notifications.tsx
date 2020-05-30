@@ -111,7 +111,7 @@ const Notifications: React.FC = () => {
           <Button LeftIcon={Plus} onClick={createNotification}>
             Create notification
           </Button>
-          <label className="block mt-2">
+          <label className="block mt-2 select-none">
             <input
               type="checkbox"
               checked={slow}

@@ -40,7 +40,7 @@ const Variants = () => {
     setVariant(value);
   };
   const choices = Object.values(MoveVariant).map(v => (
-    <label className="mr-3">
+    <label className="mr-3 select-none">
       <input
         type="radio"
         key={v}

@@ -10,13 +10,15 @@ import css from './pinned-header.module.css';
 // recreated https://twitter.com/steveruizok/status/1231516202050043905
 
 const PinnedHeader = () => {
+  const bigHeight = 80;
+  const smallHeight = 32;
   const [styles, set] = useSpring(() => ({
-    height: 120,
+    height: bigHeight,
   }));
 
   const scrollBind = useScroll(
     ({ xy: [_, y] }) => {
-      const height = interpolate([0, 200], [80, 32])(y) as number;
+      const height = interpolate([0, 200], [bigHeight, smallHeight])(y) as number;
       set({ height });
     },
     {
