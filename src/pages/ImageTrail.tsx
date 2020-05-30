@@ -8,25 +8,6 @@ import DefaultLayout from 'layouts/DefaultLayout';
 
 // recreated https://twitter.com/mattgperry/status/1159116421080788992
 
-const setupGetColor = () => {
-  // from https://yeun.github.io/open-color/
-  const colors = [
-    '#ff6b6b',
-    '#f06595',
-    '#be4bdb',
-    '#7950f2',
-    '#15aabf',
-    '#12b886',
-    '#fcc419',
-  ];
-  let previousColorIdx = -1;
-  return () => {
-    const currentColorIdx = (previousColorIdx + 1) % colors.length;
-    previousColorIdx = currentColorIdx;
-    return colors[currentColorIdx];
-  };
-};
-
 interface ImageShape {
   id: string;
   zIndex: number;
@@ -123,10 +104,29 @@ const ImageTrail = () => {
   ));
 
   return (
-    <DefaultLayout pageTitle="From state">
+    <DefaultLayout pageTitle="Image trail">
       <div className="mx-auto relative h-screen overflow-hidden">{imagesToRender}</div>
     </DefaultLayout>
   );
+};
+
+const setupGetColor = () => {
+  // from https://yeun.github.io/open-color/
+  const colors = [
+    '#ff6b6b',
+    '#f06595',
+    '#be4bdb',
+    '#7950f2',
+    '#15aabf',
+    '#12b886',
+    '#fcc419',
+  ];
+  let previousColorIdx = -1;
+  return () => {
+    const currentColorIdx = (previousColorIdx + 1) % colors.length;
+    previousColorIdx = currentColorIdx;
+    return colors[currentColorIdx];
+  };
 };
 
 export default ImageTrail;

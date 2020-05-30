@@ -2,13 +2,12 @@ import React, { useState } from 'react';
 import { a as ani, useSpring, config as configPresets } from '@react-spring/web';
 
 import DefaultLayout from 'layouts/DefaultLayout';
+import { VariantMap } from 'chaal';
 
-export enum MoveVariant {
+enum MoveVariant {
   DisplaceNear = 'Displace near',
   DisplaceFar = 'Displace far',
 }
-
-export type VariantMap<T extends string | number | symbol> = { [key in T]: any };
 
 const Variants = () => {
   const [variant, setVariant] = useState<MoveVariant>(MoveVariant.DisplaceNear);
@@ -55,7 +54,7 @@ const Variants = () => {
   ));
 
   return (
-    <DefaultLayout pageTitle="From state">
+    <DefaultLayout pageTitle="Variants">
       <div className="container mx-auto pt-4">
         <div>{choices}</div>
         <ani.div style={styles} className="inline-block w-64 h-64">

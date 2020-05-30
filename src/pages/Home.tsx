@@ -36,7 +36,10 @@ const Home = () => {
             <Link to="/variants">Variants</Link>
           </li>
           <li>
-            <Link to="/bottom-sheet">Bottom sheet</Link>
+            <Link to="/apple-watch">[To-do] Apple Watch</Link>
+          </li>
+          <li>
+            <Link to="/bottom-sheet">[To-do] Bottom sheet</Link>
           </li>
         </ul>
       </div>

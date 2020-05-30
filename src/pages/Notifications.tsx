@@ -105,7 +105,7 @@ const Notifications: React.FC = () => {
   ));
 
   return (
-    <DefaultLayout pageTitle="From state">
+    <DefaultLayout pageTitle="Notifications">
       <div className="relative min-h-screen bg-indigo-900 text-white">
         <div className="container mx-auto pt-4">
           <Button LeftIcon={Plus} onClick={createNotification}>

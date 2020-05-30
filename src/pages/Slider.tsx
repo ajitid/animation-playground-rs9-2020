@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { a as ani, useSpring } from '@react-spring/web';
 import { useDrag } from 'react-use-gesture';
 
 import DefaultLayout from 'layouts/DefaultLayout';
+import { useBounds } from 'chaal';
 
 const Slider = () => {
   const scrubSize = 40;
@@ -17,6 +18,9 @@ const Slider = () => {
     },
   }));
 
+  const inner = useRef<HTMLDivElement>(null);
+  const outer = useRef<HTMLDivElement>(null);
+
   const bindDrag = useDrag(
     ({ down, movement: [mx] }) => {
       if (down) {
@@ -25,7 +29,8 @@ const Slider = () => {
     },
     {
       initial: () => [x.get(), 0],
-      bounds: { left: 0, right: sliderWidth },
+      // bounds: { left: 0, right: sliderWidth },
+      bounds: useBounds(inner, outer),
     }
   );
 
@@ -33,11 +38,13 @@ const Slider = () => {
     <DefaultLayout pageTitle="Slider">
       <div className="container mx-auto pt-4">
         <div
+          ref={outer}
           style={{ height: scrubSize, width: scrubSize + sliderWidth }}
           className="bg-blue-300 rounded relative"
         >
           <ani.div
             {...bindDrag()}
+            ref={inner}
             style={{ x, height: scrubSize, width: scrubSize }}
             className="select-none absolute left-0 top-0 bg-blue-600 rounded"
           />

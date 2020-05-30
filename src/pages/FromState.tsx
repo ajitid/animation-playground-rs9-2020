@@ -4,7 +4,7 @@ import { a as ani, useSpring } from '@react-spring/web';
 import DefaultLayout from 'layouts/DefaultLayout';
 import Button from 'elements/atoms/Button';
 
-const FromState = () => {
+const FromState: React.FC = () => {
   const [big, setBig] = useState(false);
   const bigStyles = useSpring({ fontSize: big ? 64 : 16 });
 

@@ -6,6 +6,7 @@ import { interpolate } from '@popmotion/popcorn';
 import DefaultLayout from 'layouts/DefaultLayout';
 
 import css from './pinned-header.module.css';
+import { useViewportScroll } from 'chaal';
 
 // recreated https://twitter.com/steveruizok/status/1231516202050043905
 
@@ -16,20 +17,13 @@ const PinnedHeader = () => {
     height: bigHeight,
   }));
 
-  const scrollBind = useScroll(
-    ({ xy: [_, y] }) => {
-      const height = interpolate([0, 200], [bigHeight, smallHeight])(y) as number;
-      set({ height });
-    },
-    {
-      domTarget: window,
-    }
-  );
-
-  useEffect(scrollBind, [scrollBind]);
+  useViewportScroll(({ xy: [_, y] }) => {
+    const height = interpolate([0, 200], [bigHeight, smallHeight])(y) as number;
+    set({ height });
+  });
 
   return (
-    <DefaultLayout pageTitle="From state">
+    <DefaultLayout pageTitle="Pinned header">
       <div className="relative min-h-screen">
         <a.header
           style={styles}

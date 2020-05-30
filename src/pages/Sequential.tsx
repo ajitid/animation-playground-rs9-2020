@@ -4,7 +4,7 @@ import DefaultLayout from 'layouts/DefaultLayout';
 
 const Sequential = () => {
   return (
-    <DefaultLayout pageTitle="Keyframes">
+    <DefaultLayout pageTitle="Sequential">
       <div className="container mx-auto pt-4">
         <p className="text-gray-600 leading-tight">
           Watch this{' '}

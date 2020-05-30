@@ -9,7 +9,7 @@ const BottomSheet = () => {
   const bigStyles = useSpring({ fontSize: big ? 64 : 16 });
 
   return (
-    <DefaultLayout pageTitle="From state">
+    <DefaultLayout pageTitle="Bottom sheet">
       <div className="container mx-auto pt-4">
         <p className="mb-6 text-gray-600 leading-tight">
           Conditionally changed `to` on the basis of a state. Cool, eh?
