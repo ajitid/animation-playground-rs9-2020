@@ -28,6 +28,7 @@ const Slider = () => {
       }
     },
     {
+      filterTaps: true,
       initial: () => [x.get(), 0],
       // bounds: { left: 0, right: sliderWidth },
       bounds: useBounds(inner, outer),
