@@ -13,9 +13,7 @@ const useBounds = (ref: RefObject<HTMLElement>, bounderRef: RefObject<HTMLElemen
   useLayoutEffect(() => {
     let newBounds: BoundsShape = {};
 
-    if (!bounderRef.current || !ref.current) {
-      newBounds = {};
-    } else {
+    if (ref.current && bounderRef.current) {
       newBounds = {
         left: 0,
         right: bounderRef.current.clientWidth - ref.current.clientWidth,
