@@ -42,6 +42,7 @@ const usePinToBottom = (
 
     const { scrollTop, clientHeight, scrollHeight } = node;
     if (forceScrollRef.current) {
+      // force scroll to bottom
       forceScrollRef.current = false;
       pinToBottomRef.current = true;
     } else if (crossBufferScroll) {
@@ -55,6 +56,7 @@ const usePinToBottom = (
           scrollTop + clientHeight >= lastScrollHeightRef.current - buffer;
       }
     } else {
+      // usual buffer scroll
       pinToBottomRef.current = scrollTop + clientHeight >= scrollHeight - buffer;
     }
     lastScrollHeightRef.current = scrollHeight;
