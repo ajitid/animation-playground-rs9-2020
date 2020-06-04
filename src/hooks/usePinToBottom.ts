@@ -33,7 +33,7 @@ const usePinToBottom = (
 
   // Scroll if wihtin buffer
   const pinToBottomRef = useRef(false);
-
+  const forceScrollRef = useRef(false);
   const lastScrollHeightRef = useRef(0);
 
   useLayoutEffect(() => {
@@ -41,7 +41,10 @@ const usePinToBottom = (
     if (!node) return;
 
     const { scrollTop, clientHeight, scrollHeight } = node;
-    if (crossBufferScroll) {
+    if (forceScrollRef.current) {
+      forceScrollRef.current = false;
+      pinToBottomRef.current = true;
+    } else if (crossBufferScroll) {
       // Is buffer able to occupy scroll height changes
       if (lastScrollHeightRef.current + buffer >= scrollHeight) {
         pinToBottomRef.current = scrollTop + clientHeight >= scrollHeight - buffer;
@@ -72,22 +75,6 @@ const usePinToBottom = (
   }, [change, key, ref]);
 
   // manually scroll to bottom
-  const forceScrollRef = useRef(false);
-  useEffect(() => {
-    const node = ref.current;
-    const needToScroll = forceScrollRef.current;
-    if (!(node && needToScroll)) return;
-
-    forceScrollRef.current = false;
-    const { scrollHeight, clientHeight, scrollTop } = node;
-    change({
-      from: {
-        scrollTop,
-      },
-      scrollTop: scrollHeight - clientHeight,
-    });
-  });
-
   const scrollToBottom = () => {
     const node = ref.current;
     if (!node) return;
