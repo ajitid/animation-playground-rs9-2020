@@ -16,6 +16,7 @@ const Sequential = () => {
           >
             video by Alec Larson covering chain API
           </a>
+          .
         </p>
       </div>
     </DefaultLayout>

@@ -20,6 +20,7 @@ import Variants from 'pages/Variants';
 import AppleWatch from 'pages/AppleWatch';
 import ChatBox from 'pages/ChatBox';
 import InvertedScale from 'pages/InvertedScale';
+import Tcdba from 'pages/Tcdba';
 
 function App() {
   return (
@@ -68,6 +69,9 @@ function App() {
           </Route>
           <Route exact path="/invr-scale">
             <InvertedScale />
+          </Route>
+          <Route exact path="/tcdba">
+            <Tcdba />
           </Route>
           <Route path="*">
             <h1>Not Found</h1>

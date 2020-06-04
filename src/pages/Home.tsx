@@ -47,6 +47,9 @@ const Home = () => {
           <li>
             <Link to="/invr-scale">Inverted scale</Link>
           </li>
+          <li>
+            <Link to="/tcdba">Three cards drag, blur animation</Link>
+          </li>
         </ul>
       </div>
     </DefaultLayout>
