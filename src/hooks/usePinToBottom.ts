@@ -30,7 +30,7 @@ const usePinToBottom = (
         node.scrollTop = v;
       },
     },
-    // TODO needs decay
+    // decay is not needed here
   }));
 
   // Scroll if wihtin buffer
