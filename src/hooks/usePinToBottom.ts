@@ -6,11 +6,17 @@ import { useSpring } from '@react-spring/web';
   - for sent msgs, scroll to bottom automatically -> this can be forced using a fn
 */
 
+interface PinToBottomConfig {
+  buffer?: number;
+  crossBufferScroll?: boolean;
+}
+
 const usePinToBottom = (
   ref: RefObject<HTMLElement>,
-  buffer = 76,
-  crossBufferScroll = false
+  key: string | number,
+  { buffer = 76, crossBufferScroll = false }: PinToBottomConfig = {}
 ) => {
+  // Logic to scroll to botton
   const [, change] = useSpring(() => ({
     from: {
       scrollTop: ref.current?.scrollTop ?? 0,
@@ -25,7 +31,7 @@ const usePinToBottom = (
     // TODO needs decay
   }));
 
-  // scroll if wihtin buffer
+  // Scroll if wihtin buffer
   const pinToBottomRef = useRef(false);
 
   useLayoutEffect(() => {
@@ -34,42 +40,9 @@ const usePinToBottom = (
 
     const { scrollTop, clientHeight, scrollHeight } = node;
     pinToBottomRef.current = scrollTop + clientHeight + buffer >= scrollHeight;
-  });
+  }, [buffer, key, ref]);
 
-  // manipulates pin to bottom to add crossBufferScroll
-  const prevScrollAttrsRef = useRef({
-    scrollTop: 0,
-    clientHeight: 0,
-    scrollHeight: 0,
-  });
-  useLayoutEffect(() => {
-    const node = ref.current;
-    if (!node) return;
-
-    const { scrollTop, clientHeight, scrollHeight } = node;
-    prevScrollAttrsRef.current = {
-      scrollTop,
-      clientHeight,
-      scrollHeight,
-    };
-  }, [ref]);
-  useLayoutEffect(() => {
-    if (!crossBufferScroll) return;
-
-    const node = ref.current;
-    if (!node) return;
-
-    const { scrollTop, clientHeight, scrollHeight } = prevScrollAttrsRef.current;
-    pinToBottomRef.current = scrollTop + clientHeight + buffer >= scrollHeight;
-
-    prevScrollAttrsRef.current = {
-      scrollTop: node.scrollTop,
-      clientHeight: node.clientHeight,
-      scrollHeight: node.scrollHeight,
-    };
-  });
-
-  // carries out usual scroll to bottom
+  // carries out scroll to bottom as usual
   useEffect(() => {
     const node = ref.current;
     const pinToBottom = pinToBottomRef.current;
@@ -82,7 +55,7 @@ const usePinToBottom = (
       },
       scrollTop: scrollHeight - clientHeight,
     });
-  });
+  }, [change, key, ref]);
 
   // manually scroll to bottom
   const forceScrollRef = useRef(false);
@@ -92,8 +65,11 @@ const usePinToBottom = (
     if (!(node && needToScroll)) return;
 
     forceScrollRef.current = false;
-    const { scrollHeight, clientHeight } = node;
+    const { scrollHeight, clientHeight, scrollTop } = node;
     change({
+      from: {
+        scrollTop,
+      },
       scrollTop: scrollHeight - clientHeight,
     });
   });
@@ -101,11 +77,6 @@ const usePinToBottom = (
   const scrollToBottom = () => {
     const node = ref.current;
     if (!node) return;
-    change({
-      from: {
-        scrollTop: node.scrollTop,
-      },
-    });
     forceScrollRef.current = true;
   };
 
@@ -114,39 +85,27 @@ const usePinToBottom = (
 
 export default usePinToBottom;
 
-// import React, { useEffect, useState, useLayoutEffect, useRef } from 'react';
+// manipulates pin to bottom to add crossBufferScroll
+// const prevScrollAttrsRef = useRef({
+//   scrollTop: 0,
+//   clientHeight: 0,
+//   scrollHeight: 0,
+// });
+// useLayoutEffect(() => {
+//   const node = ref.current;
+//   if (!node) return;
+//   if (!crossBufferScroll) return;
+//   // do not calculate whether to scroll if scroll height itself hasn't changed
+//   if (prevScrollAttrsRef.current.scrollHeight === node.scrollHeight) return;
 
-// import { nanoid } from 'nanoid';
-
-// interface ScrollToBottomOptions {
-//   buffer?: number;
-// }
-
-// const useScrollToBottom = (
-//   ref: React.RefObject<HTMLElement>,
-//   { buffer = 50 }: ScrollToBottomOptions = {}
-// ) => {
-//   const [key, setKey] = useState(() => nanoid());
-//   const y = useSpring(0, { damping: 160, stiffness: 260, velocity: 54, mass: 2 });
-
-//   function scrollToBottom() {
-//     setKey(nanoid());
-//   }
-
-//   // manually scroll to bottom
-//   useEffect(() => {
-//     if (ref.current === null) return;
-//     const node = ref.current;
-//     y.set(node.scrollTop);
-//     const cancel = y.onChange(y => {
-//       node.scrollTop = y;
-//     });
-//     y.set(node.scrollHeight - node.clientHeight);
-
-//     return cancel;
-//   }, [key, ref, y]);
-
-//   return scrollToBottom;
-// };
-
-// export default useScrollToBottom;
+//   pinToBottomRef.current =
+//     prevScrollAttrsRef.current.scrollTop +
+//       prevScrollAttrsRef.current.clientHeight +
+//       buffer >=
+//     prevScrollAttrsRef.current.scrollHeight;
+//   prevScrollAttrsRef.current = {
+//     scrollTop: node.scrollTop,
+//     clientHeight: node.clientHeight,
+//     scrollHeight: node.scrollHeight,
+//   };
+// });

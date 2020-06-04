@@ -1,9 +1,8 @@
 import React, { useState, useRef } from 'react';
-import { a, useSpring } from '@react-spring/web';
+import { a } from '@react-spring/web';
 import { nanoid } from 'nanoid';
 
 import DefaultLayout from 'layouts/DefaultLayout';
-import Button from 'elements/atoms/Button';
 import usePinToBottom from 'hooks/usePinToBottom';
 
 enum MessageStatus {
@@ -26,13 +25,12 @@ const fillMsgs = (length: number): Array<Message> =>
 
 const ChatBox = () => {
   const [msgs, setMsgs] = useState<Array<Message>>(() => fillMsgs(10));
+  const [l, setL] = useState(1);
 
   const messagesContainerRef = useRef<HTMLDivElement>(null);
-  const { scrollToBottom } = usePinToBottom(
-    messagesContainerRef,
-    messagesContainerRef.current?.clientHeight ?? 0,
-    true
-  );
+  const { scrollToBottom } = usePinToBottom(messagesContainerRef, msgs.length, {
+    buffer: messagesContainerRef.current?.clientHeight ?? 0,
+  });
 
   const sendMsg = () => {
     const id = nanoid();
@@ -74,6 +72,13 @@ const ChatBox = () => {
   return (
     <DefaultLayout pageTitle="Chat box">
       <div className="">
+        <button
+          onClick={() => {
+            setL(l => l + 1);
+          }}
+        >
+          setL {l}
+        </button>
         <div className="fixed bottom-0 right-0 mx-auto">
           <div
             className="bg-purple-300 mr-3 mb-3 flex flex-col"
