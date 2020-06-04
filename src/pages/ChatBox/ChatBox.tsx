@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import { a } from '@react-spring/web';
 import { nanoid } from 'nanoid';
 
@@ -31,6 +31,7 @@ const ChatBox = () => {
   const { scrollToBottom } = usePinToBottom(messagesContainerRef, msgs.length, {
     buffer: messagesContainerRef.current?.clientHeight ?? 0,
     crossBufferScroll: true,
+    scrollAction: useCallback(console.log, []),
   });
 
   const sendMsg = () => {

@@ -1,5 +1,6 @@
 import { RefObject, useLayoutEffect, useEffect, useRef } from 'react';
 import { useSpring } from '@react-spring/web';
+import { noop } from 'utils/helpers';
 
 /*
   - for received msgs, scroll if within buffer
@@ -9,12 +10,13 @@ import { useSpring } from '@react-spring/web';
 interface PinToBottomConfig {
   buffer?: number;
   crossBufferScroll?: boolean;
+  scrollAction?: (willScroll: boolean) => void;
 }
 
 const usePinToBottom = (
   ref: RefObject<HTMLElement>,
   key: string | number,
-  { buffer = 76, crossBufferScroll = false }: PinToBottomConfig = {}
+  { buffer = 76, crossBufferScroll = false, scrollAction = noop }: PinToBottomConfig = {}
 ) => {
   // Logic to scroll to botton
   const [, change] = useSpring(() => ({
@@ -64,8 +66,11 @@ const usePinToBottom = (
 
   useEffect(() => {
     const node = ref.current;
+    if (!node) return;
+
     const pinToBottom = pinToBottomRef.current;
-    if (!(node && pinToBottom)) return;
+    scrollAction(pinToBottom);
+    if (!pinToBottom) return;
 
     const { scrollHeight, clientHeight, scrollTop } = node;
     change({
@@ -74,7 +79,7 @@ const usePinToBottom = (
       },
       scrollTop: scrollHeight - clientHeight,
     });
-  }, [change, key, ref]);
+  }, [change, key, ref, scrollAction]);
 
   // manually scroll to bottom
   const scrollToBottom = () => {
