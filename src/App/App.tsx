@@ -19,6 +19,7 @@ import BottomSheet from 'pages/BottomSheet';
 import Variants from 'pages/Variants';
 import AppleWatch from 'pages/AppleWatch';
 import ChatBox from 'pages/ChatBox';
+import InvertedScale from 'pages/InvertedScale';
 
 function App() {
   return (
@@ -64,6 +65,9 @@ function App() {
           </Route>
           <Route exact path="/chatbox">
             <ChatBox />
+          </Route>
+          <Route exact path="/invr-scale">
+            <InvertedScale />
           </Route>
           <Route path="*">
             <h1>Not Found</h1>

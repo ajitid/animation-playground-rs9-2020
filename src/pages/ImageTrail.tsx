@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { a, useTransition } from '@react-spring/web';
 import { useMove } from 'react-use-gesture';
-import { distance as pointDist } from '@popmotion/popcorn';
 import { nanoid } from 'nanoid';
 
 import DefaultLayout from 'layouts/DefaultLayout';
 import { createExpoIn, reversed } from 'wannabe-samosa/utils/easings';
+import pointDist from 'wannabe-samosa/utils/distance';
 import wrap from 'wannabe-samosa/utils/wrap';
 
 // recreated https://twitter.com/mattgperry/status/1159116421080788992

@@ -42,7 +42,10 @@ const Home = () => {
             <Link to="/bottom-sheet">[To-do] Bottom sheet</Link>
           </li>
           <li>
-            <Link to="/chatbox">[To-do] Chat box</Link>
+            <Link to="/chatbox">Chat box</Link>
+          </li>
+          <li>
+            <Link to="/invr-scale">Inverted scale</Link>
           </li>
         </ul>
       </div>
