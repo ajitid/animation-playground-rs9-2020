@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { a } from '@react-spring/web';
 import { nanoid } from 'nanoid';
 
@@ -28,11 +28,20 @@ const ChatBox = () => {
   const [l, setL] = useState(1);
 
   const messagesContainerRef = useRef<HTMLDivElement>(null);
-  const { scrollToBottom } = usePinToBottom(messagesContainerRef, msgs.length, {
-    buffer: messagesContainerRef.current?.clientHeight ?? 0,
-    crossBufferScroll: true,
-    scrollAction: useCallback(console.log, []),
-  });
+  const [scrollToBottomKey, setScrollToBottomKey] = useState('');
+  const { scrollToBottom } = usePinToBottom(
+    messagesContainerRef,
+    scrollToBottomKey /* `msgs.length` can work for simple cases*/,
+    {
+      buffer: messagesContainerRef.current?.clientHeight ?? 0,
+      crossBufferScroll: true,
+      scrollAction: useCallback(console.log, []),
+    }
+  );
+  useEffect(() => {
+    const id = nanoid();
+    setScrollToBottomKey(id);
+  }, [msgs.length]);
 
   const sendMsg = () => {
     const id = nanoid();
@@ -74,6 +83,16 @@ const ChatBox = () => {
   return (
     <DefaultLayout pageTitle="Chat box">
       <div className="">
+        <button
+          onClick={() => {
+            scrollToBottom();
+            const id = nanoid();
+            setScrollToBottomKey(id);
+          }}
+          className="mr-2"
+        >
+          scroll to bottom
+        </button>
         <button
           onClick={() => {
             setL(l => l + 1);
