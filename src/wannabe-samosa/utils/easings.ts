@@ -1,11 +1,11 @@
 /**
- * Popmotion Easing
- * @author Matt Perry (InventingWithMonster)
- *
- * Easing functions for modifying tween animation character.
- * Functions work with any animation library that accept easing functions
- * of the signature (number) => number
- */
+  Popmotion Easing
+  @author Matt Perry (InventingWithMonster)
+
+  Easing functions for modifying tween animation character.
+  Functions work with any animation library that accept easing functions
+  of the signature (number) => number
+*/
 
 /*
 Types
@@ -42,21 +42,21 @@ export const createMirroredEasing = mirrored;
 */
 
 /**
- * Creates an easing function that is based on the exponent of the provided `power`.
- * The higher the `power`, the stronger the easing.
- */
+  Creates an easing function that is based on the exponent of the provided `power`.
+  The higher the `power`, the stronger the easing.
+*/
 export const createExpoIn = (power: number): Easing => p => p ** power;
 
 /**
- * Creates an easing function that has a stronger overshoot the higher the provided `power`.
- */
+  Creates an easing function that has a stronger overshoot the higher the provided `power`.
+*/
 export const createBackIn = (power: number): Easing => p =>
   p * p * ((power + 1) * p - power);
 
 /**
- * Creates an easing function that pulls back a little before moving, and then
- * has a `createBackIn`-based overshoot
- */
+  Creates an easing function that pulls back a little before moving, and then
+  has a `createBackIn`-based overshoot
+*/
 export const createAnticipateEasing = (power: number): Easing => {
   const backEasing = createBackIn(power);
   return p => ((p *= 2) < 1 ? 0.5 * backEasing(p) : 0.5 * (2 - Math.pow(2, -10 * (p - 1))));
@@ -147,8 +147,8 @@ const calcBezier = (t: number, a1: number, a2: number) =>
   ((a(a1, a2) * t + b(a1, a2)) * t + c(a1)) * t;
 
 /**
- * Create a cubic bezier resolver
- */
+  Create a cubic bezier resolver
+*/
 export function cubicBezier(mX1: number, mY1: number, mX2: number, mY2: number) {
   const sampleValues = FLOAT_32_SUPPORTED
     ? new Float32Array(K_SPLINE_TABLE_SIZE)

@@ -41,6 +41,9 @@ const Home = () => {
           <li>
             <Link to="/bottom-sheet">[To-do] Bottom sheet</Link>
           </li>
+          <li>
+            <Link to="/chatbox">[To-do] Chat box</Link>
+          </li>
         </ul>
       </div>
     </DefaultLayout>

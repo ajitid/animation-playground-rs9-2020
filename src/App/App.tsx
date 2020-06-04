@@ -18,6 +18,7 @@ import Notifications from 'pages/Notifications';
 import BottomSheet from 'pages/BottomSheet';
 import Variants from 'pages/Variants';
 import AppleWatch from 'pages/AppleWatch';
+import ChatBox from 'pages/ChatBox';
 
 function App() {
   return (
@@ -60,6 +61,9 @@ function App() {
           </Route>
           <Route exact path="/bottom-sheet">
             <BottomSheet />
+          </Route>
+          <Route exact path="/chatbox">
+            <ChatBox />
           </Route>
           <Route path="*">
             <h1>Not Found</h1>

@@ -5,6 +5,8 @@ import { distance as pointDist } from '@popmotion/popcorn';
 import { nanoid } from 'nanoid';
 
 import DefaultLayout from 'layouts/DefaultLayout';
+import { createExpoIn, reversed } from 'wannabe-samosa/utils/easings';
+import wrap from 'wannabe-samosa/utils/wrap';
 
 // recreated https://twitter.com/mattgperry/status/1159116421080788992
 
@@ -33,7 +35,7 @@ const ImageTrail = () => {
             y: xy[1],
           },
           { x: previousImagePointRef.current[0], y: previousImagePointRef.current[1] }
-        ) > 60
+        ) > 140
       ) {
         previousImagePointRef.current = xy;
         const color = getColorRef.current();
@@ -60,7 +62,7 @@ const ImageTrail = () => {
 
   const imagesTransition = useTransition(images, {
     from: item => ({
-      scale: 0.8,
+      // scale: 0.8,
       opacity: 0.4,
       x: item.xy[0],
       y: item.xy[1],
@@ -68,14 +70,13 @@ const ImageTrail = () => {
     enter: item => ({
       scale: 1,
       opacity: 1,
-      x: item.vxvy[0] * 30 + item.xy[0],
-      y: item.vxvy[1] * 30 + item.xy[1],
+      x: item.vxvy[0] * 90 + item.xy[0],
+      y: item.vxvy[1] * 90 + item.xy[1],
+      duration: 4000,
     }),
     leave: item => ({
-      scale: 1,
+      scale: 0,
       opacity: 0,
-      x: item.vxvy[0] * 30 + item.xy[0],
-      y: item.vxvy[1] * 30 + item.xy[1],
     }),
     onRest: (data, state) => {
       const id = state.item.id;
@@ -88,6 +89,9 @@ const ImageTrail = () => {
         );
         return images;
       });
+    },
+    config: {
+      easing: powerOut4,
     },
   });
 
@@ -110,22 +114,20 @@ const ImageTrail = () => {
   );
 };
 
+// Version of Greensock's Quad ease out
+export const powerOut4 = reversed(createExpoIn(4));
+
+const placeholderColors: Set<string> = new Set();
+for (let i = 0; i < 30; i++) {
+  placeholderColors.add(`hsla(${Math.round(Math.random() * 360)},100%,70%,1)`);
+}
+const colors = Array.from(placeholderColors);
+
 const setupGetColor = () => {
-  // from https://yeun.github.io/open-color/
-  const colors = [
-    '#ff6b6b',
-    '#f06595',
-    '#be4bdb',
-    '#7950f2',
-    '#15aabf',
-    '#12b886',
-    '#fcc419',
-  ];
-  let previousColorIdx = -1;
+  let colorIdx = -1;
   return () => {
-    const currentColorIdx = (previousColorIdx + 1) % colors.length;
-    previousColorIdx = currentColorIdx;
-    return colors[currentColorIdx];
+    colorIdx = wrap(0, colors.length, colorIdx + 1);
+    return colors[colorIdx];
   };
 };
 
