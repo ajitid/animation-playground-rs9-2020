@@ -30,6 +30,7 @@ const ChatBox = () => {
   const messagesContainerRef = useRef<HTMLDivElement>(null);
   const { scrollToBottom } = usePinToBottom(messagesContainerRef, msgs.length, {
     buffer: messagesContainerRef.current?.clientHeight ?? 0,
+    crossBufferScroll: true,
   });
 
   const sendMsg = () => {
@@ -63,7 +64,7 @@ const ChatBox = () => {
       ...v,
       {
         id,
-        content: `received content ${id} received content ${id} received content ${id} received content ${id} received content ${id} received content ${id} received content ${id} received content ${id} received content ${id} received content ${id} received content ${id} received content ${id} received content ${id} received content ${id} received content ${id} received content ${id} received content ${id} received content ${id} received content ${id} received content ${id} received content ${id} received content ${id} received content ${id} received content ${id} received content ${id} received content ${id} received content ${id} received content ${id} received content ${id} received content ${id} received content ${id} received content ${id} received content ${id} received content ${id} received content ${id} received content ${id} received content ${id} received content ${id} received content ${id} received content ${id} received content ${id} received content ${id} received content ${id} received content ${id} received content ${id} received content ${id} received content ${id} received content ${id} received content ${id} received content ${id} received content ${id} received content ${id} received content ${id} received content ${id} `,
+        content: `received content ${id} received content ${id} received content ${id} received content ${id} received content ${id} received content ${id} received content ${id} received content ${id} received content ${id} received content ${id} received content ${id} received content ${id} received content ${id} received content ${id} received content ${id} received content ${id} received content ${id} `,
         status: MessageStatus.Received,
       },
     ]);

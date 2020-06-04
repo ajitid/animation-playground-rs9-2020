@@ -34,15 +34,29 @@ const usePinToBottom = (
   // Scroll if wihtin buffer
   const pinToBottomRef = useRef(false);
 
+  const lastScrollHeightRef = useRef(0);
+
   useLayoutEffect(() => {
     const node = ref.current;
     if (!node) return;
 
     const { scrollTop, clientHeight, scrollHeight } = node;
-    pinToBottomRef.current = scrollTop + clientHeight + buffer >= scrollHeight;
-  }, [buffer, key, ref]);
+    if (crossBufferScroll) {
+      // Is buffer able to occupy scroll height changes
+      if (lastScrollHeightRef.current + buffer >= scrollHeight) {
+        pinToBottomRef.current = scrollTop + clientHeight >= scrollHeight - buffer;
+      } else {
+        // Buffer isn't able to occupy new scroll height, so
+        // create pin bound using old scroll height
+        pinToBottomRef.current =
+          scrollTop + clientHeight >= lastScrollHeightRef.current - buffer;
+      }
+    } else {
+      pinToBottomRef.current = scrollTop + clientHeight >= scrollHeight - buffer;
+    }
+    lastScrollHeightRef.current = scrollHeight;
+  }, [buffer, crossBufferScroll, key, ref]);
 
-  // carries out scroll to bottom as usual
   useEffect(() => {
     const node = ref.current;
     const pinToBottom = pinToBottomRef.current;
@@ -84,28 +98,3 @@ const usePinToBottom = (
 };
 
 export default usePinToBottom;
-
-// manipulates pin to bottom to add crossBufferScroll
-// const prevScrollAttrsRef = useRef({
-//   scrollTop: 0,
-//   clientHeight: 0,
-//   scrollHeight: 0,
-// });
-// useLayoutEffect(() => {
-//   const node = ref.current;
-//   if (!node) return;
-//   if (!crossBufferScroll) return;
-//   // do not calculate whether to scroll if scroll height itself hasn't changed
-//   if (prevScrollAttrsRef.current.scrollHeight === node.scrollHeight) return;
-
-//   pinToBottomRef.current =
-//     prevScrollAttrsRef.current.scrollTop +
-//       prevScrollAttrsRef.current.clientHeight +
-//       buffer >=
-//     prevScrollAttrsRef.current.scrollHeight;
-//   prevScrollAttrsRef.current = {
-//     scrollTop: node.scrollTop,
-//     clientHeight: node.clientHeight,
-//     scrollHeight: node.scrollHeight,
-//   };
-// });
