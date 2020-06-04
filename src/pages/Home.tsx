@@ -50,6 +50,9 @@ const Home = () => {
           <li>
             <Link to="/tcdba">Three cards drag, blur animation</Link>
           </li>
+          <li>
+            <Link to="/swap">Swap</Link>
+          </li>
         </ul>
       </div>
     </DefaultLayout>
