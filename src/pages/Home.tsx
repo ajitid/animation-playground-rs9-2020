@@ -24,7 +24,7 @@ const Home = () => {
             <Link to="/sequential">Sequential animation</Link>
           </li>
           <li>
-            <Link to="/trail">Image trail</Link>
+            <Link to="/trail">[FIXME] Image trail</Link>
           </li>
           <li>
             <Link to="/pinned-header">Pinned header</Link>
@@ -51,10 +51,13 @@ const Home = () => {
             <Link to="/tcdba">Three cards drag, blur animation</Link>
           </li>
           <li>
-            <Link to="/swap">Swap</Link>
+            <Link to="/swap">[To-do] Swap</Link>
           </li>
           <li>
-            <Link to="/morph">Morph</Link>
+            <Link to="/morph">[To-do] Morph</Link>
+          </li>
+          <li>
+            <Link to="/inverse-decay">[To-do] Speed inverse-decay list transition</Link>
           </li>
         </ul>
       </div>
