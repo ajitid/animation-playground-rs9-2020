@@ -1,5 +1,5 @@
 import React, { useState, ReactNode, CSSProperties } from 'react';
-import { a, useTransition } from '@react-spring/web';
+import { a, useTransition, config as springConfig } from '@react-spring/web';
 import { Plus, X } from 'react-feather';
 import { nanoid } from 'nanoid';
 
@@ -90,7 +90,7 @@ const Notifications: React.FC = () => {
         zIndex: 0,
       },
       key: v => v.id,
-      config: { duration: slow ? 5000 : undefined },
+      config: { duration: slow ? 5000 : undefined, ...springConfig.gentle },
     }
   );
 
