@@ -22,6 +22,7 @@ import ChatBox from 'pages/ChatBox';
 import InvertedScale from 'pages/InvertedScale';
 import Tcdba from 'pages/Tcdba';
 import Swap from 'pages/Swap';
+import Morph from 'pages/Morph';
 
 function App() {
   return (
@@ -76,6 +77,9 @@ function App() {
           </Route>
           <Route exact path="/swap">
             <Swap />
+          </Route>
+          <Route exact path="/morph">
+            <Morph />
           </Route>
           <Route path="*">
             <h1>Not Found</h1>

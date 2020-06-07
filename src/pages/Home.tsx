@@ -53,6 +53,9 @@ const Home = () => {
           <li>
             <Link to="/swap">Swap</Link>
           </li>
+          <li>
+            <Link to="/morph">Morph</Link>
+          </li>
         </ul>
       </div>
     </DefaultLayout>

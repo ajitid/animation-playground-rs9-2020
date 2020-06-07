@@ -114,8 +114,7 @@ Bezier function generator
 Gaëtan Renaudeau's BezierEasing
 https://github.com/gre/bezier-easing/blob/master/index.js
 https://github.com/gre/bezier-easing/blob/master/LICENSE
-You're a hero! (<- From Popmotion guy Matt Perry.
-  Another one from gre https://gist.github.com/gre/1650294)
+You're a hero! (<- From Popmotion guy Matt Perry.)
 
 Usage:
 
