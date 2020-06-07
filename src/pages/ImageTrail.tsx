@@ -9,6 +9,8 @@ import pointDist from 'wannabe-samosa/utils/distance';
 import wrap from 'wannabe-samosa/utils/wrap';
 
 // recreated https://twitter.com/mattgperry/status/1159116421080788992
+// TODO need to fix animation, creates element with mouse pointer
+// as top left and not in center
 
 interface ImageShape {
   id: string;
@@ -74,10 +76,10 @@ const ImageTrail = () => {
       y: item.vxvy[1] * 90 + item.xy[1],
       duration: 4000,
     }),
-    leave: item => ({
+    leave: {
       scale: 0,
       opacity: 0,
-    }),
+    },
     onRest: (data, state) => {
       const id = state.item.id;
       if (!id) return;
@@ -100,7 +102,8 @@ const ImageTrail = () => {
       key={img.id}
       style={{
         ...style,
-        transform: `translate(-50%, -50%)`,
+        // transform: `translate(-50%, -50%)`,
+        // transformOrigin: '50% 50% 0',
         background: img.color,
       }}
       className="w-48 h-64 absolute inline-block"
