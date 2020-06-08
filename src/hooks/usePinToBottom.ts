@@ -1,6 +1,7 @@
 import { RefObject, useLayoutEffect, useEffect, useRef } from 'react';
 import { useSpring } from '@react-spring/web';
 import { noop } from 'utils/helpers';
+import { easeOutQuad } from 'wannabe-samosa/utils/builtinEasings';
 
 /*
   - for received msgs, scroll if within buffer
@@ -30,7 +31,11 @@ const usePinToBottom = (
         node.scrollTop = v;
       },
     },
-    // decay is not needed here
+    config: {
+      // decay is not needed here
+      easing: easeOutQuad,
+      duration: 400,
+    },
   }));
 
   // Scroll if wihtin buffer

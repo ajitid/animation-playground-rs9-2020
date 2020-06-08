@@ -90,7 +90,7 @@ const Notifications: React.FC = () => {
         zIndex: 0,
       },
       key: v => v.id,
-      config: { duration: slow ? 5000 : undefined, ...springConfig.gentle },
+      config: { duration: slow ? 5000 : undefined, frequency: 0.5, damping: 0.75 },
     }
   );
 
