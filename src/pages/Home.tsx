@@ -63,7 +63,7 @@ const Home = () => {
             <Link to="/drag-drop">[To-do] Drag and drop</Link>
           </li>
           <li>
-            <Link to="/flick">[To-do] Flick motion</Link>
+            <Link to="/flick">Flick motion</Link>
           </li>
         </ul>
       </div>
