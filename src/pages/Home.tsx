@@ -59,6 +59,12 @@ const Home = () => {
           <li>
             <Link to="/inverse-decay">[To-do] Speed inverse-decay list transition</Link>
           </li>
+          <li>
+            <Link to="/drag-drop">[To-do] Drag and drop</Link>
+          </li>
+          <li>
+            <Link to="/flick">[To-do] Flick motion</Link>
+          </li>
         </ul>
       </div>
     </DefaultLayout>

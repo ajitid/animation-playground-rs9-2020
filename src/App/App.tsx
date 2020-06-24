@@ -23,6 +23,8 @@ import InvertedScale from 'pages/InvertedScale';
 import Tcdba from 'pages/Tcdba';
 import Swap from 'pages/Swap';
 import Morph from 'pages/Morph';
+import DragDrop from 'pages/DragDrop';
+import FlickMotion from 'pages/FlickMotion';
 
 function App() {
   return (
@@ -80,6 +82,12 @@ function App() {
           </Route>
           <Route exact path="/morph">
             <Morph />
+          </Route>
+          <Route exact path="/drag-drop">
+            <DragDrop />
+          </Route>
+          <Route exact path="/flick">
+            <FlickMotion />
           </Route>
           <Route path="*">
             <h1>Not Found</h1>
