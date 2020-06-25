@@ -9,12 +9,13 @@ import usePreviousValue from 'hooks/usePreviousValue';
 // Intially I'll start with <a.div being inline blocks.
 // first not null el will give me top and left,
 // i can take things user want to animate, for eg. transform and opacity
-// and animate them, it can later be used for sticky, 
+// and animate them, it can later be used for sticky,
 // width and height also need transform
 
 // might use usetransition to make animation across
 // use sdras technique
 
+/*
 const useMorph = <T extends HTMLElement>(ref: RefObject<T>) => {
   
   const  [position, setPosition] = useState({
@@ -61,3 +62,4 @@ const useMorph = <T extends HTMLElement>(ref: RefObject<T>) => {
 };
 
 export default useMorph;
+*/

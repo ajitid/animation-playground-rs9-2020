@@ -1,5 +1,6 @@
 import { RefObject, useLayoutEffect, useEffect, useRef } from 'react';
 import { useSpring } from '@react-spring/web';
+
 import { noop } from 'utils/helpers';
 import { easeOutQuad } from 'wannabe-samosa/utils/builtinEasings';
 
