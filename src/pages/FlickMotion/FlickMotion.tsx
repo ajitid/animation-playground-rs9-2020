@@ -69,7 +69,7 @@ const FlickMotion = () => {
             {/* popover  */}
             <a.div
               {...bindDrag()}
-              style={{ x, y, width: 90, height: 130, touchAction: 'pan-y' }}
+              style={{ x, y, width: 90, height: 130, touchAction: 'none' }}
               className={`rounded cursor-move ${css.popover}`}
             ></a.div>
           </div>
