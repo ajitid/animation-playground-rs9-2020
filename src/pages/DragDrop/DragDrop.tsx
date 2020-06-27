@@ -1,13 +1,22 @@
 import React, { useState } from 'react';
 import { a, useSpring } from '@react-spring/web';
-import { useDrag } from 'react-dnd';
+import { useDrag, useDrop, DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
 import DefaultLayout from 'layouts/DefaultLayout';
 import { AlertCircle } from 'react-feather';
 
 const SmallCard = () => {
+  const [collected, drag] = useDrag({
+    item: {
+      type: 'info',
+      id: 1,
+    },
+  });
+
   return (
     <div
+      ref={drag}
       style={{
         maxWidth: 180,
         minHeight: 70,
@@ -54,6 +63,10 @@ const BigCard = () => {
 };
 
 const DragDrop: React.FC = () => {
+  const [collected, drop] = useDrop({
+    accept: 'info',
+  });
+
   return (
     <DefaultLayout pageTitle="Drag and drop">
       <div className="min-h-screen bg-cbn-800 text-cbn-100 p-5">
@@ -62,11 +75,15 @@ const DragDrop: React.FC = () => {
         </div>
         <BigCard />
 
-        <div className="bg-gray-300" style={{ height: 200 }}></div>
+        <div ref={drop} className="bg-gray-300" style={{ height: 200 }}></div>
         <div className="bg-red-300" style={{ height: 150 }}></div>
       </div>
     </DefaultLayout>
   );
 };
 
-export default DragDrop;
+export default () => (
+  <DndProvider backend={HTML5Backend}>
+    <DragDrop />
+  </DndProvider>
+);
