@@ -43,7 +43,7 @@ const useMove = ({
   // anim on key change
   useLayoutEffect(() => {
     const cachedPosition = getCachedPosition(id);
-    if (ref.current === null || cachedPosition === null) return;
+    if (ref.current === null || !(cachedPosition || innerCachedPosition)) return;
 
     const newPositionDomRect = ref.current.getBoundingClientRect();
     const newPosition: Position = {
