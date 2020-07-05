@@ -3,11 +3,11 @@ import { a, useSpring } from '@react-spring/web';
 import { useDrag } from 'react-use-gesture';
 
 import DefaultLayout from 'layouts/DefaultLayout';
-import { useBounds } from 'wannabe-samosa';
+import { useBounds } from 'flicky';
 
 import css from './flick-motion.module.css';
-import project from 'wannabe-samosa/utils/project';
-import DecelerationRate from 'wannabe-samosa/utils/DecelerationRate';
+import project from 'flicky/utils/project';
+import DecelerationRate from 'flicky/utils/DecelerationRate';
 
 const FlickMotion = () => {
   const popoverRef = useRef<HTMLDivElement>(null);

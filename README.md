@@ -1,5 +1,7 @@
 TLDR; crossfade is a tweened linear ease in its default config
 
+react-easy-flip
+
 - chat
 - rs docs about mansonry and other layouts
 

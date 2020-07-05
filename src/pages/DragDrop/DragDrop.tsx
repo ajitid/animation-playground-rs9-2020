@@ -63,8 +63,13 @@ const BigCard = () => {
 };
 
 const DragDrop: React.FC = () => {
+  const [items, setItems] = useState<Array<number>>([]);
+
   const [collected, drop] = useDrop({
     accept: 'info',
+    drop() {
+      setItems(prevItems => [...prevItems, 2]);
+    },
   });
 
   return (
@@ -75,7 +80,13 @@ const DragDrop: React.FC = () => {
         </div>
         <BigCard />
 
-        <div ref={drop} className="bg-gray-300" style={{ height: 200 }}></div>
+        <div ref={drop} className="bg-gray-300" style={{ height: 200 }}>
+          {items.map((x, i) => (
+            <div key={i} className="text-yellow-500">
+              yas
+            </div>
+          ))}
+        </div>
         <div className="bg-red-300" style={{ height: 150 }}></div>
       </div>
     </DefaultLayout>

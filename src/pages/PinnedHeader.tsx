@@ -4,8 +4,8 @@ import { a, useSpring } from '@react-spring/web';
 import DefaultLayout from 'layouts/DefaultLayout';
 
 import css from './pinned-header.module.css';
-import { useViewportScroll } from 'wannabe-samosa';
-import interpolate from 'wannabe-samosa/utils/interpolate';
+import { useViewportScroll } from 'flicky';
+import interpolate from 'flicky/utils/interpolate';
 
 // recreated https://twitter.com/steveruizok/status/1231516202050043905
 

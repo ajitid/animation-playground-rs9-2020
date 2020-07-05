@@ -9,6 +9,12 @@ const Home = () => {
       <div className="container mx-auto pt-4">
         <ul>
           <li>
+            <Link to="/stuff">Stuff</Link>
+          </li>
+          <li>
+            <Link to="/stuff2">Stuff 2</Link>
+          </li>
+          <li>
             <Link to="/mount">Mount</Link>
           </li>
           <li>

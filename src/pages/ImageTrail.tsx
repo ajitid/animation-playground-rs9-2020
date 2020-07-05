@@ -4,9 +4,9 @@ import { useMove } from 'react-use-gesture';
 import { nanoid } from 'nanoid';
 
 import DefaultLayout from 'layouts/DefaultLayout';
-import { createExpoIn, reversed } from 'wannabe-samosa/utils/easings';
-import pointDist from 'wannabe-samosa/utils/distance';
-import wrap from 'wannabe-samosa/utils/wrap';
+import { createExpoIn, reversed } from 'flicky/utils/easings';
+import pointDist from 'flicky/utils/distance';
+import wrap from 'flicky/utils/wrap';
 
 // recreated https://twitter.com/mattgperry/status/1159116421080788992
 // TODO need to fix animation, creates element with mouse pointer

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { a as ani, useSpring, config as configPresets } from '@react-spring/web';
 
 import DefaultLayout from 'layouts/DefaultLayout';
-import { VariantMap } from 'wannabe-samosa';
+import { VariantMap } from 'flicky';
 
 enum MoveVariant {
   DisplaceNear = 'Displace near',
