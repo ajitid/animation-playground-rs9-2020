@@ -4,12 +4,12 @@ import { Position } from './types';
 import noop from '../noop';
 
 interface MoveContextShape {
-  getCachedPosition: (id: string) => Position;
+  getCachedPosition: (id: string) => Position | null;
   updateCachedPosition: (id: string, position: Position) => void;
 }
 
 const MoveContext = createContext<MoveContextShape>({
-  getCachedPosition: () => ({ width: 0, height: 0, top: 0, left: 0 }),
+  getCachedPosition: () => null,
   updateCachedPosition: noop,
 });
 

@@ -53,12 +53,22 @@ const useMove = ({
       width: newPositionDomRect.width,
     };
 
-    const prevPosition: Position = {
-      left: innerCachedPosition ? innerCachedPosition.left : cachedPosition.left,
-      top: innerCachedPosition ? innerCachedPosition.top : cachedPosition.top,
-      width: innerCachedPosition ? innerCachedPosition.width : cachedPosition.width,
-      height: innerCachedPosition ? innerCachedPosition.height : cachedPosition.height,
-    };
+    let prevPosition = { ...newPosition };
+    if (innerCachedPosition) {
+      prevPosition = {
+        left: innerCachedPosition.left,
+        top: innerCachedPosition.top,
+        width: innerCachedPosition.width,
+        height: innerCachedPosition.height,
+      };
+    } else if (cachedPosition) {
+      prevPosition = {
+        left: cachedPosition.left,
+        top: cachedPosition.top,
+        width: cachedPosition.width,
+        height: cachedPosition.height,
+      };
+    }
 
     set({
       from: {
