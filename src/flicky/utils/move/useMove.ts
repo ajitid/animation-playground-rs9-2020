@@ -1,25 +1,32 @@
 import { useLayoutEffect, RefObject, useContext, useEffect, useRef } from 'react';
 import { useSpring, SpringConfig } from '@react-spring/web';
 
-import { Position, MoveStyles } from './types';
+import { Position, MoveStylesOptional, MoveStyles } from './types';
 import usePreviousValue from 'hooks/usePreviousValue';
 import MoveContext from './MoveContext';
 
-interface UseMoveShape<T extends HTMLElement = HTMLElement> {
+export interface UseMoveShape<T extends HTMLElement = HTMLElement> {
   id: string;
   ref?: RefObject<T>;
   key: any;
-  addStyles?: MoveStyles;
+  addStyles?: MoveStylesOptional;
   config?: SpringConfig;
 }
+
+const unkownAddStyles = { x: 0, y: 0, scaleX: 1, scaleY: 1 };
 
 const useMove = <T extends HTMLElement = HTMLElement>({
   id,
   ref,
   key,
-  addStyles = { x: 0, y: 0, scaleX: 1, scaleY: 1 },
+  addStyles = unkownAddStyles,
   config,
 }: UseMoveShape<T>) => {
+  const toApplyAddStyles = {
+    ...unkownAddStyles,
+    ...addStyles,
+  };
+
   const { getCachedPosition, updateCachedPosition } = useContext(MoveContext);
 
   const innerRef = useRef(null);
@@ -74,14 +81,14 @@ const useMove = <T extends HTMLElement = HTMLElement>({
 
     set({
       from: {
-        x: prevPosition.left + styles.x.get() - newPosition.left + addStyles.x,
-        y: prevPosition.top + styles.y.get() - newPosition.top + addStyles.y,
+        x: prevPosition.left + styles.x.get() - newPosition.left + toApplyAddStyles.x,
+        y: prevPosition.top + styles.y.get() - newPosition.top + toApplyAddStyles.y,
         scaleX:
           ((styles.scaleX.get() * prevPosition.width) / newPosition.width) *
-          addStyles.scaleX,
+          toApplyAddStyles.scaleX,
         scaleY:
           ((styles.scaleY.get() * prevPosition.height) / newPosition.height) *
-          addStyles.scaleY,
+          toApplyAddStyles.scaleY,
       },
       x: 0,
       y: 0,
