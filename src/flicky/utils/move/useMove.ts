@@ -9,9 +9,20 @@ interface UseMoveShape<T extends HTMLElement = HTMLElement> {
   id: string;
   ref: RefObject<T>;
   key: any;
+  addStyles?: {
+    x: number;
+    y: number;
+    scaleX: number;
+    scaleY: number;
+  };
 }
 
-const useMove = ({ id, ref, key }: UseMoveShape) => {
+const useMove = ({
+  id,
+  ref,
+  key,
+  addStyles = { x: 0, y: 0, scaleX: 1, scaleY: 1 },
+}: UseMoveShape) => {
   const { getCachedPosition, updateCachedPosition } = useContext(MoveContext);
 
   const innerCachedPosition = usePreviousValue<Position | null>(
@@ -51,10 +62,14 @@ const useMove = ({ id, ref, key }: UseMoveShape) => {
 
     set({
       from: {
-        x: prevPosition.left + styles.x.get() - newPosition.left,
-        y: prevPosition.top + styles.y.get() - newPosition.top,
-        scaleX: (styles.scaleX.get() * prevPosition.width) / newPosition.width,
-        scaleY: (styles.scaleY.get() * prevPosition.height) / newPosition.height,
+        x: prevPosition.left + styles.x.get() - newPosition.left + addStyles.x,
+        y: prevPosition.top + styles.y.get() - newPosition.top + addStyles.y,
+        scaleX:
+          ((styles.scaleX.get() * prevPosition.width) / newPosition.width) *
+          addStyles.scaleX,
+        scaleY:
+          ((styles.scaleY.get() * prevPosition.height) / newPosition.height) *
+          addStyles.scaleY,
       },
       x: 0,
       y: 0,
