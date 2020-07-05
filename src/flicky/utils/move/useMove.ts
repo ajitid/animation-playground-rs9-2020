@@ -1,5 +1,5 @@
 import { useLayoutEffect, RefObject, useContext, useEffect, useRef } from 'react';
-import { useSpring } from '@react-spring/web';
+import { useSpring, SpringConfig } from '@react-spring/web';
 
 import { Position, MoveStyles } from './types';
 import usePreviousValue from 'hooks/usePreviousValue';
@@ -10,6 +10,7 @@ interface UseMoveShape<T extends HTMLElement = HTMLElement> {
   ref?: RefObject<T>;
   key: any;
   addStyles?: MoveStyles;
+  config?: SpringConfig;
 }
 
 const useMove = <T extends HTMLElement = HTMLElement>({
@@ -17,6 +18,7 @@ const useMove = <T extends HTMLElement = HTMLElement>({
   ref,
   key,
   addStyles = { x: 0, y: 0, scaleX: 1, scaleY: 1 },
+  config,
 }: UseMoveShape<T>) => {
   const { getCachedPosition, updateCachedPosition } = useContext(MoveContext);
 
@@ -33,7 +35,7 @@ const useMove = <T extends HTMLElement = HTMLElement>({
     y: 0,
     scaleX: 1,
     scaleY: 1,
-    config: {
+    config: config ?? {
       frequency: 3,
       damping: 0.9,
     },
