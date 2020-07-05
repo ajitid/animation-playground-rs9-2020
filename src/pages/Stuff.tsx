@@ -8,10 +8,10 @@ import Link from 'elements/atoms/Link';
 const Stuff = () => {
   const [right, setRight] = useState(false);
 
-  const boxRef = useRef(null);
-  const magicStyles = useMove({
+  // const boxRef = useRef(null);
+  const { style: magicStyles, ref: boxRef } = useMove<HTMLDivElement>({
     id: 'box',
-    ref: boxRef,
+    // ref: boxRef,
     key: right,
   });
 

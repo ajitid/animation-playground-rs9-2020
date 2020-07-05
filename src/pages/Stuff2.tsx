@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, RefObject } from 'react';
 import { a } from '@react-spring/web';
 
 import DefaultLayout from 'layouts/DefaultLayout';
@@ -7,10 +7,9 @@ import useMove from '../flicky/utils/move/useMove';
 import Link from 'elements/atoms/Link';
 
 const Stuff2 = () => {
-  const boxRef = useRef(null);
-  const moveStyles = useMove({
+  // const boxRef = useRef(null);
+  const { style: moveStyles, ref: boxRef } = useMove<HTMLDivElement>({
     id: 'box',
-    ref: boxRef,
     key: '2',
   });
 
