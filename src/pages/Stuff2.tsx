@@ -1,4 +1,4 @@
-import React, { useState, useRef, RefObject } from 'react';
+import React from 'react';
 import { a } from '@react-spring/web';
 
 import DefaultLayout from 'layouts/DefaultLayout';
