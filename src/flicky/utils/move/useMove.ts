@@ -6,7 +6,7 @@ import usePreviousValue from 'hooks/usePreviousValue';
 import MoveContext from './MoveContext';
 
 export interface UseMoveShape<T extends HTMLElement = HTMLElement> {
-  id: string;
+  id: string | number;
   ref?: RefObject<T>;
   key: any;
   addStyles?: MoveStylesOptional;

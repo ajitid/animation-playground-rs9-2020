@@ -6,14 +6,14 @@ import MoveContext from './MoveContext';
 const MoveProvider: React.FC = ({ children }) => {
   const cachedPositionsRef = useRef<Record<string, Position>>({});
 
-  const updateCachedPosition = (id: string, position: Position) => {
+  const updateCachedPosition = (id: string | number, position: Position) => {
     cachedPositionsRef.current = {
       ...cachedPositionsRef.current,
       [id]: { ...position },
     };
   };
 
-  const getCachedPosition = (id: string) => {
+  const getCachedPosition = (id: string | number) => {
     return cachedPositionsRef.current[id] ?? null;
   };
 

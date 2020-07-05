@@ -6,7 +6,7 @@ import useMove, { UseMoveShape } from './useMove';
 type PickedUseMoveShape = Omit<UseMoveShape, 'addStyles' | 'key'>;
 
 interface MoveProps extends PickedUseMoveShape {
-  moveKey: string;
+  moveKey: any;
   style?: StyleProps;
 }
 
