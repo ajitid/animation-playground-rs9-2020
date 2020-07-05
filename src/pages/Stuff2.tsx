@@ -38,7 +38,7 @@ const Stuff2 = () => {
               moveKey={boxes.length}
               style={{ backgroundColor: colors[box] }}
             >
-              <a.div className="w-16 h-16 bg-gray-400" />
+              <a.div className="w-16 h-16" />
             </Move>
           ))}
         </div>
