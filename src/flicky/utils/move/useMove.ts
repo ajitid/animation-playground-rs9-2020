@@ -1,5 +1,5 @@
 import { useLayoutEffect, RefObject, useContext, useEffect, useRef } from 'react';
-import { useSpring, SpringConfig } from '@react-spring/web';
+import { useSpring, SpringConfig, config as configPresets } from '@react-spring/web';
 
 import { Position, MoveStylesOptional, MoveStyles } from './types';
 import usePreviousValue from 'hooks/usePreviousValue';
@@ -42,10 +42,7 @@ const useMove = <T extends HTMLElement = HTMLElement>({
     y: 0,
     scaleX: 1,
     scaleY: 1,
-    config: config ?? {
-      frequency: 3,
-      damping: 0.9,
-    },
+    config: config ?? configPresets.default,
   }));
 
   // anim on key change
