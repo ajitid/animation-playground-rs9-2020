@@ -14,6 +14,10 @@ interface UseMoveShape<T extends HTMLElement = HTMLElement> {
 const useMove = ({ id, ref, key }: UseMoveShape) => {
   const { getCachedPosition, updateCachedPosition } = useContext(MoveContext);
 
+  const innerCachedPosition = usePreviousValue<Position | null>(
+    ref.current?.getBoundingClientRect() ?? null
+  );
+
   const [styles, set] = useSpring(() => ({
     x: 0,
     y: 0,
@@ -31,20 +35,26 @@ const useMove = ({ id, ref, key }: UseMoveShape) => {
     if (ref.current === null || cachedPosition === null) return;
 
     const newPositionDomRect = ref.current.getBoundingClientRect();
-    const newPosition = {
+    const newPosition: Position = {
       height: newPositionDomRect.height,
       left: newPositionDomRect.left,
       top: newPositionDomRect.top,
       width: newPositionDomRect.width,
     };
-    console.log('happened', cachedPosition, newPosition);
+
+    const prevPosition: Position = {
+      left: innerCachedPosition ? innerCachedPosition.left : cachedPosition.left,
+      top: innerCachedPosition ? innerCachedPosition.top : cachedPosition.top,
+      width: innerCachedPosition ? innerCachedPosition.width : cachedPosition.width,
+      height: innerCachedPosition ? innerCachedPosition.height : cachedPosition.height,
+    };
 
     set({
       from: {
-        x: cachedPosition.left + styles.x.get() - newPosition.left,
-        y: cachedPosition.top + styles.y.get() - newPosition.top,
-        scaleX: (styles.scaleX.get() * cachedPosition.width) / newPosition.width,
-        scaleY: (styles.scaleY.get() * cachedPosition.height) / newPosition.height,
+        x: prevPosition.left + styles.x.get() - newPosition.left,
+        y: prevPosition.top + styles.y.get() - newPosition.top,
+        scaleX: (styles.scaleX.get() * prevPosition.width) / newPosition.width,
+        scaleY: (styles.scaleY.get() * prevPosition.height) / newPosition.height,
       },
       x: 0,
       y: 0,
@@ -53,23 +63,15 @@ const useMove = ({ id, ref, key }: UseMoveShape) => {
     });
   }, [key]); /* eslint-disable-line react-hooks/exhaustive-deps */
 
-  // unmount read
+  // unmount read for new page transition
   useEffect(() => {
-    const position = ref.current?.getBoundingClientRect(); /* eslint-disable-line react-hooks/exhaustive-deps */
-    if (!position) return;
-    const { height, left, top, width } = position;
-    updateCachedPosition(id, { height, left, top, width });
-  }, [key]); /* eslint-disable-line react-hooks/exhaustive-deps */
-
-  // // unmount read
-  // useEffect(() => {
-  //   return () => {
-  //     const position = ref.current?.getBoundingClientRect(); /* eslint-disable-line react-hooks/exhaustive-deps */
-  //     if (!position) return;
-  //     const { height, left, top, width } = position;
-  //     updateCachedPosition(id, { height, left, top, width });
-  //   };
-  // }, []); /* eslint-disable-line react-hooks/exhaustive-deps */
+    return () => {
+      const position = ref.current?.getBoundingClientRect(); /* eslint-disable-line react-hooks/exhaustive-deps */
+      if (!position) return;
+      const { height, left, top, width } = position;
+      updateCachedPosition(id, { height, left, top, width });
+    };
+  }, []); /* eslint-disable-line react-hooks/exhaustive-deps */
 
   return styles;
 };
