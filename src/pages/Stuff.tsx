@@ -27,10 +27,10 @@ const Stuff = () => {
           transition={{
             duration: 3,
           }}
-          className={`bg-gray-400  right-0 bottom-0 mr-2 mb-2 ${
-            right ? 'fixed w-16 h-32' : 'w-8 h-8'
+          className={`bg-gray-400 fixed right-0 bottom-0 mr-2 mb-2 ${
+            right ? ' w-16 h-32' : 'w-8 h-8'
           }`}
-          style={{ transformOrigin: '100% 100%' }}
+          style={{ transformOrigin: '50% 50%' }}
         ></motion.div> */}
 
         {/* <Flipper flipKey={right}>
@@ -44,7 +44,7 @@ const Stuff = () => {
               className={`bg-gray-400 fixed right-0 bottom-0 mr-2 mb-2 ${
                 right ? 'w-16 h-32' : 'w-8 h-8'
               }`}
-              style={{ transformOrigin: '100% 100%' }}
+              style={{ transformOrigin: '50% 50%' }}
             ></div>
           </Flipped>
         </Flipper> */}
@@ -52,7 +52,7 @@ const Stuff = () => {
           id="chatwala"
           moveKey={right}
           config={{ damping: 0.9, frequency: 3 }}
-          style={{ transformOrigin: '100% 100%' }}
+          style={{ transformOrigin: '0% 0%' }}
         >
           <a.div
             className={`bg-gray-400 fixed  right-0 bottom-0 mr-2 mb-2 ${
