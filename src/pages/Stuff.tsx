@@ -52,7 +52,7 @@ const Stuff = () => {
           id="chatwala"
           moveKey={right}
           config={{ damping: 0.9, frequency: 3 }}
-          style={{ transformOrigin: '0% 0%' }}
+          style={{ transformOrigin: '100% 100%' }}
         >
           <a.div
             className={`bg-gray-400 fixed  right-0 bottom-0 mr-2 mb-2 ${

@@ -1,49 +1,48 @@
-import React, { useState } from 'react';
-import { a } from '@react-spring/web';
-
-import DefaultLayout from 'layouts/DefaultLayout';
-import Link from 'elements/atoms/Link';
-import Move from '../flicky/utils/move/Move';
+import React, { useState, useMemo } from 'react';
+import { a, useTrail } from '@react-spring/web';
+import { VariantMap } from 'flicky/utils/variants';
 
 const Stuff2 = () => {
-  const [boxes, setBoxes] = useState([1, 2, 3, 4]);
+  const [on, setOn] = useState(false);
 
-  const colors: Record<number, string> = {
-    1: 'lightgreen',
-    2: 'pink',
-    3: 'orange',
-    4: 'lightblue',
+  const ac = useMemo(() => {
+    return on ? 'on' : 'off';
+  }, [on]);
+
+  const variants: VariantMap<'on' | 'off'> = {
+    on: { opacity: 1, x: 0 },
+    off: { opacity: 1, x: +100 },
   };
 
+  const s = [1, 2, 3, 4];
+
+  const trail = useTrail(s.length, {
+    ...variants[ac],
+    config: {
+      frequency: 0.5,
+      damping: 1,
+      delay: 3000,
+    },
+    // delay(key) {
+    //   console.log(key);
+    //   return key;
+    // },
+  });
+
   return (
-    <DefaultLayout pageTitle="Stuff">
-      <div className="container mx-auto pt-4">
-        <button
-          className="mb-4 px-2 py-1 bg-gray-300 rounded"
-          onClick={() => {
-            setBoxes(prevBoxes => {
-              const boxes = [...prevBoxes];
-              boxes.splice(0, 1);
-              return boxes;
-            });
-          }}
-        >
-          Remove first box
-        </button>
-        <div className="flex justify-between">
-          {boxes.map(box => (
-            <Move
-              key={box}
-              id={box}
-              moveKey={boxes.length}
-              style={{ backgroundColor: colors[box] }}
-            >
-              <a.div className="w-16 h-16" />
-            </Move>
-          ))}
-        </div>
+    <div>
+      <div className="mb-3">
+        <button className="px-2 py-1 bg-gray-400" onClick={() => setOn(on => !on)}>
+          on/off
+        </button>{' '}
+        {ac}
       </div>
-    </DefaultLayout>
+      <a.div>
+        {trail.map((v, i) => (
+          <a.div key={i} style={v} className="bg-gray-600 w-8 ml-4 h-8" />
+        ))}
+      </a.div>
+    </div>
   );
 };
 
