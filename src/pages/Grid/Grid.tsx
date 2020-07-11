@@ -6,6 +6,7 @@ import Button from 'elements/atoms/Button';
 
 import PackingGrid from './PackingGrid';
 import Item from './Item';
+import DragHandle from './DragHandle';
 
 const Grid: React.FC = () => {
   const l = [1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -34,7 +35,12 @@ const Grid: React.FC = () => {
             <div className="bg-green-400 w-8 h-8 m-4">1</div>
           </Item>
           <Item>
-            <div className="bg-green-400 w-8 h-8 m-4">2</div>
+            <div className="bg-green-400 w-8 h-8 m-4">
+              2
+              <DragHandle>
+                <div className="w-2 h-2 bg-pink-400" />
+              </DragHandle>
+            </div>
           </Item>
           <Item>
             <div className="bg-green-400 w-8 h-8 m-4">3</div>

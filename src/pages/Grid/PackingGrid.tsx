@@ -16,6 +16,8 @@ const PackingGrid: React.FC = ({ children }) => {
   useEffect(() => {
     if (!elRef.current) return;
     const grid = new Muuri(elRef.current, {
+      dragEnabled: true,
+      dragHandle: '[data-grid-item-drag-handle]',
       layout: {
         fillGaps: true,
       },
