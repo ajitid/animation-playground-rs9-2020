@@ -71,6 +71,9 @@ const Home = () => {
           <li>
             <Link to="/flick">Flick motion</Link>
           </li>
+          <li>
+            <Link to="/grid">Grid</Link>
+          </li>
         </ul>
       </div>
     </DefaultLayout>

@@ -8,6 +8,7 @@ import 'styles/tailwind.css';
 
 import MoveProvider from 'flicky/utils/move/MoveProvider';
 import Home from 'pages/Home';
+import Grid from 'pages/Grid';
 import Mount from 'pages/Mount';
 import Slider from 'pages/Slider';
 import Keyframes from 'pages/Keyframes';
@@ -98,6 +99,9 @@ function App() {
             </Route>
             <Route exact path="/flick">
               <FlickMotion />
+            </Route>
+            <Route exact path="/grid">
+              <Grid />
             </Route>
             <Route path="*">
               <h1>Not Found</h1>
