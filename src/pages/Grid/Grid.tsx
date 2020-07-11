@@ -38,66 +38,12 @@ const Grid: React.FC = () => {
         <div>
           <button onClick={toggleShowAnother}>show another</button>
         </div>
-        <PackingGrid onPositionChange={(items: any) => console.log(items)}>
-          {/* {l.map(x => ( */}
-          <Item>
-            <div className="bg-green-400 w-8 h-8 m-4">1</div>
-          </Item>
-          <Item>
-            <div className="bg-green-400 w-8 h-8 m-4">
-              2
-              <DragHandle>
-                <div className="w-2 h-2 bg-pink-400" />
-              </DragHandle>
-            </div>
-          </Item>
-          {swapValue ? (
-            <>
-              <Item key="3">
-                <div className="bg-green-400 w-8 h-8 m-4">3</div>
-              </Item>
-              <Item key="4">
-                <div className="bg-green-400 w-24 h-8 m-4">4</div>
-              </Item>
-            </>
-          ) : (
-            <>
-              <Item key="4">
-                <div className="bg-green-400 w-24 h-8 m-4">4</div>
-              </Item>
-              <Item key="3">
-                <div className="bg-green-400 w-8 h-8 m-4">3</div>
-              </Item>
-            </>
-          )}
-
-          {/* 2 */}
-          <Item>
-            <div className="bg-green-400 w-8 h-8 m-4">5</div>
-          </Item>
-          <Item>
-            <div className="bg-green-400 w-8 h-8 m-4">6</div>
-          </Item>
-          <Item>
-            <div className="bg-green-400 w-8 h-8 m-4">7</div>
-          </Item>
-          <Item>
-            <div className="bg-green-400 w-8 h-8 m-4">8</div>
-          </Item>
-          {/* 3 */}
-          <Item>
-            <div className="bg-green-400 w-8 h-8 m-4">9</div>
-          </Item>
-          {show && (
-            <Item>
-              <div className="bg-green-400 w-8 h-8 m-4">10</div>
+        <PackingGrid onOrderChange={(items: any) => console.log(items)}>
+          {l.map(x => (
+            <Item key={x} itemId={x.toString()}>
+              <div className="bg-green-400 w-8 h-8 m-4">1</div>
             </Item>
-          )}
-          {showAnother && (
-            <Item>
-              <div className="bg-green-400 w-8 h-8 m-4">11</div>
-            </Item>
-          )}
+          ))}
         </PackingGrid>
       </div>
     </DefaultLayout>

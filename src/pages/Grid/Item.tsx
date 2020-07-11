@@ -2,9 +2,13 @@ import React, { useContext, useEffect, useRef } from 'react';
 
 import { PackingGridContext } from './PackingGrid';
 
-type ItemAttrs = Pick<React.HTMLAttributes<HTMLDivElement>, 'className' | 'style'>;
+type ElAttrs = Pick<React.HTMLAttributes<HTMLDivElement>, 'className' | 'style'>;
 
-const Item: React.FC<ItemAttrs> = ({ children, className, style }) => {
+interface ItemProps extends ElAttrs {
+  itemId: string;
+}
+
+const Item: React.FC<ItemProps> = ({ children, className, style, itemId }) => {
   const { grid } = useContext(PackingGridContext);
   const elRef = useRef<HTMLDivElement>(null);
 
@@ -20,7 +24,12 @@ const Item: React.FC<ItemAttrs> = ({ children, className, style }) => {
   }, [grid]);
 
   return (
-    <div ref={elRef} className={className} style={{ ...style, position: 'absolute' }}>
+    <div
+      data-grid-item-id={itemId}
+      ref={elRef}
+      className={className}
+      style={{ ...style, position: 'absolute' }}
+    >
       {children}
     </div>
   );
