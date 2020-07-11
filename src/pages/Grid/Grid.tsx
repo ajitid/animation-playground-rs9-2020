@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import { a as ani, useTransition } from '@react-spring/web';
 
 import DefaultLayout from 'layouts/DefaultLayout';
@@ -26,9 +26,9 @@ const Grid: React.FC = () => {
     setShowAnother(s => !s);
   };
 
-  const handleOrderChange = useRef((items: any) => {
+  const handleOrderChange = useCallback((items: any) => {
     console.log(items);
-  });
+  }, []);
 
   return (
     <DefaultLayout pageTitle="Grid">
@@ -42,7 +42,7 @@ const Grid: React.FC = () => {
         <div>
           <button onClick={toggleShowAnother}>show another</button>
         </div>
-        <PackingGrid onOrderChange={handleOrderChange.current}>
+        <PackingGrid onOrderChange={handleOrderChange}>
           {l.map(x => (
             <Item key={x} itemId={x.toString()}>
               <div className="bg-green-400 w-8 h-8 m-4">1</div>
