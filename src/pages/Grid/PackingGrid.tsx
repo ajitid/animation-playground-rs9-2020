@@ -1,5 +1,7 @@
 import React, { useRef, useEffect, useState, createContext } from 'react';
-import Muuri from 'muuri';
+import Muuri, { Item } from 'muuri';
+
+import { noop } from 'utils/helpers';
 
 interface PackingGridContextShape {
   grid: Muuri | null;
@@ -9,7 +11,9 @@ export const PackingGridContext = createContext<PackingGridContextShape>({
   grid: null,
 });
 
-const PackingGrid: React.FC = ({ children }) => {
+const PackingGrid: React.FC<{
+  onPositionChange?: (items: Item[]) => void;
+}> = ({ children, onPositionChange = noop }) => {
   const elRef = useRef<HTMLDivElement>(null);
   const [grid, setGrid] = useState<Muuri | null>(null);
 
@@ -30,12 +34,21 @@ const PackingGrid: React.FC = ({ children }) => {
     */
     grid.remove(grid.getItems());
 
+    // grid.layout(false, onLayoutChange);
+    grid.on('layoutEnd', items => {
+      onPositionChange(items);
+    });
+
+    grid.on('dragEnd', () => {
+      onPositionChange(grid.getItems());
+    });
+
     setGrid(grid);
 
     return () => {
       grid.destroy();
     };
-  }, []);
+  }, [onPositionChange]);
 
   return (
     <PackingGridContext.Provider value={{ grid }}>

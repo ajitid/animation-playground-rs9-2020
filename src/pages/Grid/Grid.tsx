@@ -29,7 +29,7 @@ const Grid: React.FC = () => {
         <div>
           <button onClick={toggleShowAnother}>show another</button>
         </div>
-        <PackingGrid>
+        <PackingGrid onPositionChange={items => console.log(items)}>
           {/* {l.map(x => ( */}
           <Item>
             <div className="bg-green-400 w-8 h-8 m-4">1</div>
