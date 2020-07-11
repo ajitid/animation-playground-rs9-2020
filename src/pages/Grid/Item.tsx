@@ -2,7 +2,9 @@ import React, { useContext, useEffect, useRef } from 'react';
 
 import { PackingGridContext } from './PackingGrid';
 
-const Item: React.FC = ({ children }) => {
+type ItemAttrs = Pick<React.HTMLAttributes<HTMLDivElement>, 'className' | 'style'>;
+
+const Item: React.FC<ItemAttrs> = ({ children, className, style }) => {
   const { grid } = useContext(PackingGridContext);
   const elRef = useRef<HTMLDivElement>(null);
 
@@ -18,7 +20,7 @@ const Item: React.FC = ({ children }) => {
   }, [grid]);
 
   return (
-    <div ref={elRef} style={{ position: 'absolute' }}>
+    <div ref={elRef} className={className} style={{ ...style, position: 'absolute' }}>
       {children}
     </div>
   );

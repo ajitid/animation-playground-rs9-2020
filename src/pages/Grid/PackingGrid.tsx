@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState, createContext } from 'react';
+import React, { useRef, useState, createContext } from 'react';
 import Muuri, { Item } from 'muuri';
 
 import { noop } from 'utils/helpers';
