@@ -1,5 +1,4 @@
 import React, { useState, useCallback } from 'react';
-import { a as ani, useTransition } from '@react-spring/web';
 
 import DefaultLayout from 'layouts/DefaultLayout';
 
