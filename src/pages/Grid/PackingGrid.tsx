@@ -1,14 +1,16 @@
-import React, { useRef, useState, createContext, useEffect } from 'react';
+import React, { useRef, useState, createContext, useEffect, useCallback } from 'react';
 import Muuri, { Item } from 'muuri';
 
 import { noop } from 'utils/helpers';
 
 interface PackingGridContextShape {
   grid: Muuri | null;
+  relayout: () => void;
 }
 
 export const PackingGridContext = createContext<PackingGridContextShape>({
   grid: null,
+  relayout: noop,
 });
 
 const PackingGrid: React.FC<{
@@ -67,8 +69,13 @@ const PackingGrid: React.FC<{
     };
   }, [onOrderChange]);
 
+  const relayout = useCallback(() => {
+    if (!grid) return;
+    grid.refreshItems().layout();
+  }, [grid]);
+
   return (
-    <PackingGridContext.Provider value={{ grid }}>
+    <PackingGridContext.Provider value={{ grid, relayout }}>
       <div ref={elRef} style={{ position: 'relative' }} className="bg-gray-300 w-64">
         {children}
       </div>
