@@ -12,7 +12,7 @@ const Grid: React.FC = () => {
   const [l, setL] = useState(() => [1, 2, 3, 4, 5, 6, 7, 8, 9]);
 
   const handleOrderChange = useRef((keys: string[]) => {
-    const l = keys.map(x => parseInt(x));
+    const l = keys.map(x => parseInt(x, 10));
     setL(l);
   });
 
