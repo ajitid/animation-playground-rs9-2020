@@ -53,19 +53,19 @@ const Grid: React.FC = () => {
           </Item>
           {swapValue ? (
             <>
-              <Item>
+              <Item key="3">
                 <div className="bg-green-400 w-8 h-8 m-4">3</div>
               </Item>
-              <Item>
+              <Item key="4">
                 <div className="bg-green-400 w-24 h-8 m-4">4</div>
               </Item>
             </>
           ) : (
             <>
-              <Item>
+              <Item key="4">
                 <div className="bg-green-400 w-24 h-8 m-4">4</div>
               </Item>
-              <Item>
+              <Item key="3">
                 <div className="bg-green-400 w-8 h-8 m-4">3</div>
               </Item>
             </>
