@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState, createContext } from 'react';
 import Muuri, { Item } from 'muuri';
 
 import { noop } from 'utils/helpers';
+import useOnMount from 'hooks/useOnMount';
 
 interface PackingGridContextShape {
   grid: Muuri | null;
@@ -17,7 +18,7 @@ const PackingGrid: React.FC<{
   const elRef = useRef<HTMLDivElement>(null);
   const [grid, setGrid] = useState<Muuri | null>(null);
 
-  useEffect(() => {
+  useOnMount(() => {
     if (!elRef.current) return;
     const grid = new Muuri(elRef.current, {
       dragEnabled: true,
@@ -48,7 +49,7 @@ const PackingGrid: React.FC<{
     return () => {
       grid.destroy();
     };
-  }, [onPositionChange]);
+  });
 
   return (
     <PackingGridContext.Provider value={{ grid }}>
