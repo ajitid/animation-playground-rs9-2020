@@ -1,5 +1,5 @@
 import React, { useRef, useState, createContext, useEffect } from 'react';
-import Muuri from 'muuri';
+import Muuri, { Item } from 'muuri';
 
 import { noop } from 'utils/helpers';
 
@@ -35,15 +35,16 @@ const PackingGrid: React.FC<{
     */
     grid.remove(grid.getItems());
 
-    grid.on('layoutEnd', items => {
+    const handleLayoutEnd = (items: Item[]) => {
       const keysWithNull = items.map(item => item.getElement()?.dataset.gridItemId ?? null);
       const keys = keysWithNull.filter(key => Boolean(key));
 
       order.current = keys as Array<string>;
       onOrderChange(order.current);
-    });
+    };
+    grid.on('layoutEnd', handleLayoutEnd);
 
-    grid.on('dragEnd', () => {
+    const handleDragEnd = () => {
       const keysWithNull = grid
         .getItems()
         .map(item => item.getElement()?.dataset.gridItemId ?? null);
@@ -53,11 +54,15 @@ const PackingGrid: React.FC<{
 
       order.current = keys as Array<string>;
       onOrderChange(order.current);
-    });
+    };
+    grid.on('dragEnd', handleDragEnd);
 
     setGrid(grid);
 
     return () => {
+      grid.off('layoutEnd', handleLayoutEnd);
+      grid.off('dragEnd', handleDragEnd);
+
       grid.destroy();
     };
   }, [onOrderChange]);
