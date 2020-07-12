@@ -41,6 +41,8 @@ const PackingGrid: React.FC<{
       const keysWithNull = items.map(item => item.getElement()?.dataset.gridItemId ?? null);
       const keys = keysWithNull.filter(key => Boolean(key));
 
+      if (order.current.join() === keys.join()) return;
+
       order.current = keys as Array<string>;
       onOrderChange(order.current);
     };
