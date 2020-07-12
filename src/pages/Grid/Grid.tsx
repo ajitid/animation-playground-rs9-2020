@@ -18,7 +18,7 @@ const Grid: React.FC = () => {
   return (
     <DefaultLayout pageTitle="Grid">
       <div className="container mx-auto pt-4">
-        <PackingGrid onOrderChange={handleOrderChange}>
+        <PackingGrid onLayoutChange={handleOrderChange}>
           {l.map(x => (
             <Item key={x} itemId={x.toString()} className="m-4">
               <Box x={x} />

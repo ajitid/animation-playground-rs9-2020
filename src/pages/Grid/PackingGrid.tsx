@@ -14,11 +14,10 @@ export const PackingGridContext = createContext<PackingGridContextShape>({
 });
 
 const PackingGrid: React.FC<{
-  onOrderChange?: (itemsId: Array<string>) => void;
-}> = ({ children, onOrderChange = noop }) => {
+  onLayoutChange?: (itemsId: Array<string>) => void;
+}> = ({ children, onLayoutChange = noop }) => {
   const elRef = useRef<HTMLDivElement>(null);
   const [grid, setGrid] = useState<Muuri | null>(null);
-  const order = useRef<Array<string>>([]);
 
   useEffect(() => {
     if (!elRef.current) return;
@@ -38,26 +37,20 @@ const PackingGrid: React.FC<{
     grid.remove(grid.getItems());
 
     const handleLayoutEnd = (items: Item[]) => {
-      const keysWithNull = items.map(item => item.getElement()?.dataset.gridItemId ?? null);
-      const keys = keysWithNull.filter(key => Boolean(key));
+      const idsWithNull = items.map(item => item.getElement()?.dataset.gridItemId ?? null);
+      const ids = idsWithNull.filter(key => Boolean(key)) as Array<string>;
 
-      if (order.current.join() === keys.join()) return;
-
-      order.current = keys as Array<string>;
-      onOrderChange(order.current);
+      onLayoutChange(ids);
     };
     grid.on('layoutEnd', handleLayoutEnd);
 
     const handleDragEnd = () => {
-      const keysWithNull = grid
+      const idsWithNull = grid
         .getItems()
         .map(item => item.getElement()?.dataset.gridItemId ?? null);
-      const keys = keysWithNull.filter(key => Boolean(key));
+      const ids = idsWithNull.filter(key => Boolean(key)) as Array<string>;
 
-      if (order.current.join() === keys.join()) return;
-
-      order.current = keys as Array<string>;
-      onOrderChange(order.current);
+      onLayoutChange(ids);
     };
     grid.on('dragEnd', handleDragEnd);
 
@@ -69,7 +62,7 @@ const PackingGrid: React.FC<{
 
       grid.destroy();
     };
-  }, [onOrderChange]);
+  }, [onLayoutChange]);
 
   const relayout = useCallback(() => {
     if (!grid) return;
