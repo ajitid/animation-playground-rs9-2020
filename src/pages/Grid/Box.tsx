@@ -4,14 +4,13 @@ import { PackingGridContext } from './PackingGrid';
 import useDragHandle from './useDragHandle';
 
 const Box: React.FC<{ x: number }> = ({ x }) => {
-  const { relayout } = useContext(PackingGridContext);
   const resizeHandleRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-
-  const fn = useCallback(() => {
+  const { relayout } = useContext(PackingGridContext);
+  const handleResizeDone = useCallback(() => {
     relayout();
   }, [relayout]);
-  useResizeHandle(resizeHandleRef, containerRef, fn);
+  useResizeHandle(resizeHandleRef, containerRef, handleResizeDone);
 
   const dragProps = useDragHandle();
 
