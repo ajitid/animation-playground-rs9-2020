@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback, useContext } from 'react';
+import React, { useRef, useCallback, useContext } from 'react';
 import useResizeHandle from './useResizeHandle';
 import DragHandle from './DragHandle';
 import { PackingGridContext } from './PackingGrid';
