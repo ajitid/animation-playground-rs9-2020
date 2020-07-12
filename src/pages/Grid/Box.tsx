@@ -1,6 +1,5 @@
 import React, { useRef, useCallback, useContext } from 'react';
 import useResizeHandle from './useResizeHandle';
-import DragHandle from './DragHandle';
 import { PackingGridContext } from './PackingGrid';
 import useDragHandle from './useDragHandle';
 
