@@ -9,7 +9,7 @@ interface ItemProps extends ElAttrs {
 }
 
 const Item: React.FC<ItemProps> = ({ children, className, style, itemId }) => {
-  const { grid, gridWidth, cols } = useContext(PackingGridContext);
+  const { grid, gridWidth, cols, relayout } = useContext(PackingGridContext);
   const elRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -23,12 +23,18 @@ const Item: React.FC<ItemProps> = ({ children, className, style, itemId }) => {
     };
   }, [grid]);
 
+  useEffect(() => {
+    if (!elRef.current) return;
+    elRef.current.style.width = `${gridWidth / cols}px`;
+    relayout();
+  }, [cols, gridWidth, relayout, grid]);
+
   return (
     <div
       data-grid-item-id={itemId}
       ref={elRef}
       className={className}
-      style={{ ...style, position: 'absolute', width: gridWidth / cols }}
+      style={{ ...style, position: 'absolute' }}
     >
       {children}
     </div>

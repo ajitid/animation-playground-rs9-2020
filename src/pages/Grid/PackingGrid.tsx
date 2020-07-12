@@ -82,9 +82,9 @@ const PackingGrid: React.FC<{
     assigned to each items, we need to tell Muuri to perform a relayout for the
     changes.
   */
-  useEffect(() => {
-    relayout();
-  }, [gridWidth, relayout]);
+  // useEffect(() => {
+  //   relayout();
+  // }, [gridWidth, relayout]);
 
   return (
     <PackingGridContext.Provider value={{ grid, relayout, gridWidth, cols }}>
