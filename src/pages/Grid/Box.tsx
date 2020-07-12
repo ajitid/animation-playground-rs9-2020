@@ -15,7 +15,7 @@ const Box: React.FC<{ x: number }> = ({ x }) => {
   const dragProps = useDragHandle();
 
   return (
-    <div ref={containerRef} className="bg-green-400 w-full h-8 relative">
+    <div ref={containerRef} className="bg-green-400 w-8 h-8 relative">
       {x}
       <div {...dragProps} className="absolute right-0 top-0 bg-pink-500 w-2 h-2" />
       <div ref={resizeHandleRef} className="absolute right-0 bottom-0 bg-red-500 w-2 h-2" />
