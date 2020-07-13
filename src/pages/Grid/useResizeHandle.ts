@@ -1,11 +1,14 @@
-import { useEffect, RefObject } from 'react';
+import { useEffect, RefObject, useContext } from 'react';
 import { noop } from 'utils/helpers';
+import { MovingBoxContext } from './MovingBox';
 
 const useResizeHandle = (
   handleRef: RefObject<HTMLElement>,
   containerRef: RefObject<HTMLElement>,
   onResizeDone = noop
 ) => {
+  const { setPosition, setShow } = useContext(MovingBoxContext);
+
   useEffect(() => {
     const handle = handleRef.current;
     const container = containerRef.current;
@@ -22,11 +25,30 @@ const useResizeHandle = (
       function resize(e: MouseEvent) {
         if (handle === null || container === null) return;
 
+        const rect = container.getBoundingClientRect();
+
         if (!isFirstResizeDone) {
           isFirstResizeDone = true;
-          extraWidth = container.getBoundingClientRect().right - e.pageX;
-          extraHeight = container.getBoundingClientRect().bottom - e.pageY;
+          extraWidth = rect.right - e.pageX;
+          extraHeight = rect.bottom - e.pageY;
+
+          setPosition({
+            from: {
+              left: rect.left,
+              top: rect.top,
+              height: rect.height,
+              width: rect.width,
+            },
+          });
+          setShow(true);
         }
+
+        setPosition({
+          left: rect.left,
+          top: rect.top,
+          height: rect.height,
+          width: rect.width,
+        });
 
         const newWidth = e.pageX - container.getBoundingClientRect().left + extraWidth;
         if (newWidth > handle.getBoundingClientRect().width) {
@@ -40,6 +62,7 @@ const useResizeHandle = (
       }
 
       function stopResize() {
+        setShow(false);
         onResizeDone();
         window.removeEventListener('pointermove', resize);
         window.removeEventListener('pointerup', stopResize);
@@ -54,7 +77,7 @@ const useResizeHandle = (
     return () => {
       handle.removeEventListener('mousedown', handleMouseDown);
     };
-  }, [containerRef, handleRef, onResizeDone]);
+  }, [containerRef, handleRef, onResizeDone, setPosition, setShow]);
 
   return [handleRef, containerRef];
 };

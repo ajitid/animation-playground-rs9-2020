@@ -3,6 +3,7 @@ import Muuri, { Item } from 'muuri';
 import useDimensions from 'react-cool-dimensions';
 
 import { noop } from 'utils/helpers';
+import MovingBox from './MovingBox';
 
 interface PackingGridContextShape {
   grid: Muuri | null;
@@ -81,9 +82,11 @@ const PackingGrid: React.FC<{
 
   return (
     <PackingGridContext.Provider value={{ grid, relayout, cols, gridWidth }}>
-      <div ref={elRef} style={{ position: 'relative' }} className="bg-gray-300 w-64">
-        {children}
-      </div>
+      <MovingBox>
+        <div ref={elRef} style={{ position: 'relative' }} className="bg-gray-300 w-64">
+          {children}
+        </div>
+      </MovingBox>
     </PackingGridContext.Provider>
   );
 };
