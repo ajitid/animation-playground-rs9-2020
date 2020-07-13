@@ -24,10 +24,10 @@ interface ItemProps extends ElAttrs {
 
 const Item: React.FC<ItemProps> = ({ children, className, style, itemId }) => {
   const { grid } = useContext(PackingGridContext);
-  const itemWrapperRef = useRef<HTMLDivElement>(null);
+  const itemRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const el = itemWrapperRef.current;
+    const el = itemRef.current;
     if (!grid || !el) return;
 
     const items = grid.add(el);
@@ -37,13 +37,14 @@ const Item: React.FC<ItemProps> = ({ children, className, style, itemId }) => {
     };
   }, [grid]);
 
-  const itemRef = useRef<HTMLDivElement>(null);
-
   return (
-    <div data-grid-item-id={itemId} ref={itemWrapperRef} className="absolute">
-      <div ref={itemRef} className={className} style={style}>
-        <ItemContext.Provider value={{ itemRef }}>{children}</ItemContext.Provider>
-      </div>
+    <div
+      data-grid-item-id={itemId}
+      ref={itemRef}
+      className={`absolute ${className ?? ''}`}
+      style={style}
+    >
+      <ItemContext.Provider value={{ itemRef }}>{children}</ItemContext.Provider>
     </div>
   );
 };
