@@ -20,11 +20,20 @@ const Grid: React.FC = () => {
     setCols(cols => (cols === 3 ? 4 : 3));
   };
 
+  const removeInBw = () => {
+    setL(prevL => {
+      const l = [...prevL];
+      l.splice(2, 1);
+      return l;
+    });
+  };
+
   return (
     <DefaultLayout pageTitle="Grid">
       <div className="container mx-auto pt-4">
         <div>
           <button onClick={changeCols}>change cols</button>
+          <button onClick={removeInBw}>remove in b/w</button>
         </div>
         <PackingGrid cols={cols} onLayoutChange={handleOrderChange}>
           {l.map(x => (
