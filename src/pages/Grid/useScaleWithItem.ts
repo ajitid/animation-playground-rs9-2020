@@ -3,21 +3,21 @@ import { useEffect, useContext, RefObject } from 'react';
 import { PackingGridContext } from './PackingGrid';
 import { ItemContext } from './Item';
 
-const useScaleWithItem = (containerRef: RefObject<HTMLElement>) => {
+const useScaleWithItem = (itemContentBlockRef: RefObject<HTMLElement>) => {
   const { relayout, cols, gridWidth } = useContext(PackingGridContext);
   const { itemRef } = useContext(ItemContext);
 
   useEffect(() => {
-    const container = containerRef.current;
     const item = itemRef.current;
-    if (!container || !item || gridWidth === 0) return;
+    const itemContent = itemContentBlockRef.current;
+    if (!item || !itemContent || gridWidth === 0) return;
 
-    const xSpace =
+    const excessWidth =
       parseFloat(getComputedStyle(item).marginLeft.replace('px', '')) +
       parseFloat(getComputedStyle(item).marginRight.replace('px', ''));
-    container.style.width = `${(gridWidth - xSpace * cols) / cols}px`;
+    itemContent.style.width = `${gridWidth / cols - excessWidth}px`;
     relayout();
-  }, [cols, containerRef, gridWidth, itemRef, relayout]);
+  }, [cols, itemContentBlockRef, gridWidth, relayout, itemRef]);
 };
 
 export default useScaleWithItem;

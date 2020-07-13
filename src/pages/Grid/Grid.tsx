@@ -15,7 +15,7 @@ const Grid: React.FC = () => {
     setL(l);
   }, []);
 
-  const [cols, setCols] = useState(3);
+  const [cols, setCols] = useState(4);
   const changeCols = () => {
     setCols(cols => (cols === 3 ? 4 : 3));
   };
@@ -37,7 +37,7 @@ const Grid: React.FC = () => {
         </div>
         <PackingGrid cols={cols} onLayoutChange={handleOrderChange}>
           {l.map(x => (
-            <Item key={x} itemId={x.toString()} className="m-4">
+            <Item key={x} itemId={x.toString()} xUnit={x === 3 ? 2 : 1} className="m-3">
               <Box x={x} />
             </Item>
           ))}
