@@ -10,7 +10,7 @@ const Box: React.FC<{ x: number }> = ({ x }) => {
   const resizeHandleRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  useScaleWithItem(containerRef, 80);
+  useScaleWithItem(containerRef, 32);
 
   const handleResizeDone = useCallback(() => {
     relayout();

@@ -31,18 +31,24 @@ const Grid: React.FC = () => {
   return (
     <DefaultLayout pageTitle="Grid">
       <div className="container mx-auto pt-4">
-        <div>
-          <button onClick={changeCols}>change cols</button>
-          <button onClick={removeInBw}>remove in b/w</button>
+        <div>{cols} cols</div>
+        <div className="mt-2 mb-4">
+          <button onClick={changeCols} className="px-2 py-1 rounded bg-gray-300 mr-3">
+            change cols
+          </button>
+          <button onClick={removeInBw} className="px-2 py-1 rounded bg-gray-300">
+            remove 3rd box
+          </button>
         </div>
         <PackingGrid cols={cols} onLayoutChange={handleOrderChange}>
           {l.map(x => (
             <Item
               key={x}
               itemId={x.toString()}
-              xUnit={x === 3 ? 3 : 1}
-              yUnit={x === 3 ? 2 : 1}
-              className="m-3 mt-1"
+              xUnit={x === 6 ? 2 : 1}
+              // yUnit={x === 3 ? 2 : 1}
+              // className="m-3 mt-1"
+              className="m-3 "
             >
               <Box x={x} />
             </Item>
