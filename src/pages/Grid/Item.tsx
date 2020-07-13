@@ -1,6 +1,20 @@
-import React, { useContext, useEffect, useRef, useLayoutEffect } from 'react';
+import React, {
+  useContext,
+  useEffect,
+  useRef,
+  MutableRefObject,
+  createContext,
+} from 'react';
 
 import { PackingGridContext } from './PackingGrid';
+
+interface ItemContextShape {
+  itemRef: MutableRefObject<HTMLDivElement | null>;
+}
+
+export const ItemContext = createContext<ItemContextShape>({
+  itemRef: { current: null },
+});
 
 type ElAttrs = Pick<React.HTMLAttributes<HTMLDivElement>, 'className' | 'style'>;
 
@@ -9,11 +23,11 @@ interface ItemProps extends ElAttrs {
 }
 
 const Item: React.FC<ItemProps> = ({ children, className, style, itemId }) => {
-  const { grid, cols } = useContext(PackingGridContext);
-  const elRef = useRef<HTMLDivElement>(null);
+  const { grid } = useContext(PackingGridContext);
+  const itemWrapperRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const el = elRef.current;
+    const el = itemWrapperRef.current;
     if (!grid || !el) return;
 
     const items = grid.add(el);
@@ -23,21 +37,13 @@ const Item: React.FC<ItemProps> = ({ children, className, style, itemId }) => {
     };
   }, [grid]);
 
-  // useLayoutEffect(() => {
-  //   const el = elRef.current;
-  //   if (!el) return;
-  //   // el.style.width = `${100 / cols}%`;
-  //   // grid?.refreshItems();
-  // }, [cols, grid]);
+  const itemRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div
-      data-grid-item-id={itemId}
-      ref={elRef}
-      className={className}
-      style={{ ...style, position: 'absolute' }}
-    >
-      {children}
+    <div data-grid-item-id={itemId} ref={itemWrapperRef} className="absolute">
+      <div ref={itemRef} className={className} style={style}>
+        <ItemContext.Provider value={{ itemRef }}>{children}</ItemContext.Provider>
+      </div>
     </div>
   );
 };

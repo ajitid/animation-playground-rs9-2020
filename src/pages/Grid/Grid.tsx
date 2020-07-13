@@ -15,12 +15,20 @@ const Grid: React.FC = () => {
     setL(l);
   }, []);
 
+  const [cols, setCols] = useState(3);
+  const changeCols = () => {
+    setCols(cols => (cols === 3 ? 4 : 3));
+  };
+
   return (
     <DefaultLayout pageTitle="Grid">
       <div className="container mx-auto pt-4">
-        <PackingGrid cols={3} onLayoutChange={handleOrderChange}>
+        <div>
+          <button onClick={changeCols}>change cols</button>
+        </div>
+        <PackingGrid cols={cols} onLayoutChange={handleOrderChange}>
           {l.map(x => (
-            <Item key={x} itemId={x.toString()}>
+            <Item key={x} itemId={x.toString()} className="m-4">
               <Box x={x} />
             </Item>
           ))}
