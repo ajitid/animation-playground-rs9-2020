@@ -1,21 +1,27 @@
 import React, { useRef, useState, createContext, useEffect, useCallback } from 'react';
 import Muuri, { Item } from 'muuri';
+import useDimensions from 'react-cool-dimensions';
 
 import { noop } from 'utils/helpers';
 
 interface PackingGridContextShape {
   grid: Muuri | null;
   relayout: () => void;
+  cols: number;
+  gridWidth: number;
 }
 
 export const PackingGridContext = createContext<PackingGridContextShape>({
   grid: null,
   relayout: noop,
+  cols: 1,
+  gridWidth: 0,
 });
 
 const PackingGrid: React.FC<{
   onLayoutChange?: (itemsId: Array<string>) => void;
-}> = ({ children, onLayoutChange = noop }) => {
+  cols: number;
+}> = ({ children, onLayoutChange = noop, cols }) => {
   const elRef = useRef<HTMLDivElement>(null);
   const [grid, setGrid] = useState<Muuri | null>(null);
 
@@ -69,8 +75,12 @@ const PackingGrid: React.FC<{
     grid.refreshItems().layout();
   }, [grid]);
 
+  const { width: gridWidth } = useDimensions(elRef, {
+    useBorderBoxSize: true,
+  });
+
   return (
-    <PackingGridContext.Provider value={{ grid, relayout }}>
+    <PackingGridContext.Provider value={{ grid, relayout, cols, gridWidth }}>
       <div ref={elRef} style={{ position: 'relative' }} className="bg-gray-300 w-64">
         {children}
       </div>

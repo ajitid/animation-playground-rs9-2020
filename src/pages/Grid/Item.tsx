@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from 'react';
+import React, { useContext, useEffect, useRef, useLayoutEffect } from 'react';
 
 import { PackingGridContext } from './PackingGrid';
 
@@ -9,7 +9,7 @@ interface ItemProps extends ElAttrs {
 }
 
 const Item: React.FC<ItemProps> = ({ children, className, style, itemId }) => {
-  const { grid } = useContext(PackingGridContext);
+  const { grid, cols } = useContext(PackingGridContext);
   const elRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -22,6 +22,13 @@ const Item: React.FC<ItemProps> = ({ children, className, style, itemId }) => {
       grid.remove(items);
     };
   }, [grid]);
+
+  // useLayoutEffect(() => {
+  //   const el = elRef.current;
+  //   if (!el) return;
+  //   // el.style.width = `${100 / cols}%`;
+  //   // grid?.refreshItems();
+  // }, [cols, grid]);
 
   return (
     <div
