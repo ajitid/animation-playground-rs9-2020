@@ -5,7 +5,7 @@ import { ItemContext } from './Item';
 
 const useScaleWithItem = (itemContentBlockRef: RefObject<HTMLElement>) => {
   const { relayout, cols, gridWidth } = useContext(PackingGridContext);
-  const { itemRef } = useContext(ItemContext);
+  const { itemRef, xUnit } = useContext(ItemContext);
 
   useEffect(() => {
     const item = itemRef.current;
@@ -15,9 +15,9 @@ const useScaleWithItem = (itemContentBlockRef: RefObject<HTMLElement>) => {
     const excessWidth =
       parseFloat(getComputedStyle(item).marginLeft.replace('px', '')) +
       parseFloat(getComputedStyle(item).marginRight.replace('px', ''));
-    itemContent.style.width = `${gridWidth / cols - excessWidth}px`;
+    itemContent.style.width = `${(gridWidth / cols) * xUnit - excessWidth}px`;
     relayout();
-  }, [cols, itemContentBlockRef, gridWidth, relayout, itemRef]);
+  }, [cols, itemContentBlockRef, gridWidth, relayout, itemRef, xUnit]);
 };
 
 export default useScaleWithItem;
