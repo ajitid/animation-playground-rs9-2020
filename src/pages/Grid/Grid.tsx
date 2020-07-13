@@ -37,7 +37,13 @@ const Grid: React.FC = () => {
         </div>
         <PackingGrid cols={cols} onLayoutChange={handleOrderChange}>
           {l.map(x => (
-            <Item key={x} itemId={x.toString()} xUnit={x === 3 ? 3 : 1} className="m-3">
+            <Item
+              key={x}
+              itemId={x.toString()}
+              xUnit={x === 3 ? 3 : 1}
+              yUnit={x === 3 ? 2 : 1}
+              className="m-3 mt-1"
+            >
               <Box x={x} />
             </Item>
           ))}

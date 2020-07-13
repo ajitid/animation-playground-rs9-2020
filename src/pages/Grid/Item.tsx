@@ -11,11 +11,13 @@ import { PackingGridContext } from './PackingGrid';
 interface ItemContextShape {
   itemRef: MutableRefObject<HTMLDivElement | null>;
   xUnit: number;
+  yUnit: number;
 }
 
 export const ItemContext = createContext<ItemContextShape>({
   itemRef: { current: null },
   xUnit: 1,
+  yUnit: 1,
 });
 
 type ElAttrs = Pick<React.HTMLAttributes<HTMLDivElement>, 'className' | 'style'>;
@@ -23,9 +25,17 @@ type ElAttrs = Pick<React.HTMLAttributes<HTMLDivElement>, 'className' | 'style'>
 interface ItemProps extends ElAttrs {
   itemId: string;
   xUnit?: number;
+  yUnit?: number;
 }
 
-const Item: React.FC<ItemProps> = ({ children, className, style, itemId, xUnit = 1 }) => {
+const Item: React.FC<ItemProps> = ({
+  children,
+  className,
+  style,
+  itemId,
+  xUnit = 1,
+  yUnit = 1,
+}) => {
   const { grid } = useContext(PackingGridContext);
   const itemRef = useRef<HTMLDivElement>(null);
 
@@ -47,7 +57,9 @@ const Item: React.FC<ItemProps> = ({ children, className, style, itemId, xUnit =
       className={`${className ?? ''} absolute`}
       style={style}
     >
-      <ItemContext.Provider value={{ itemRef, xUnit }}>{children}</ItemContext.Provider>
+      <ItemContext.Provider value={{ itemRef, xUnit, yUnit }}>
+        {children}
+      </ItemContext.Provider>
     </div>
   );
 };
