@@ -33,6 +33,7 @@
     "react-scripts": "3.4.1",
     "react-use-gesture": "^7.0.15",
     "react-use-measure": "^2.0.1",
+    "rematrix": "^0.7.0",
     "typescript": "^3.7.5"
   },
   "devDependencies": {

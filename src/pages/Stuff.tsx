@@ -7,64 +7,78 @@ import useMove from 'flicky/utils/move/useMove';
 import Move from 'flicky/utils/move/Move';
 import DefaultLayout from 'layouts/DefaultLayout';
 import Link from 'elements/atoms/Link';
+import Animate from 'flicky/PataNahi';
 
-const Stuff = () => {
-  const [right, setRight] = useState(false);
+const Stuff: React.FC = () => {
+  const [big, setBig] = useState(false);
 
   return (
-    <DefaultLayout pageTitle="Stuff">
-      <div className="container mx-auto pt-4">
-        <button
-          onClick={() => {
-            setRight(right => !right);
-          }}
-        >
-          switch
-        </button>
-
-        {/* <motion.div
-          animate
-          transition={{
-            duration: 3,
-          }}
-          className={`bg-gray-400 fixed right-0 bottom-0 mr-2 mb-2 ${
-            right ? ' w-16 h-32' : 'w-8 h-8'
-          }`}
-          style={{ transformOrigin: '50% 50%' }}
-        ></motion.div> */}
-
-        {/* <Flipper flipKey={right}>
-          <Flipped
-            flipId="chatwala"
-            spring={{
-              stiffness: 100,
-            }}
-          >
-            <div
-              className={`bg-gray-400 fixed right-0 bottom-0 mr-2 mb-2 ${
-                right ? 'w-16 h-32' : 'w-8 h-8'
-              }`}
-              style={{ transformOrigin: '50% 50%' }}
-            ></div>
-          </Flipped>
-        </Flipper> */}
-        <Move
-          id="chatwala"
-          moveKey={right}
-          config={{ damping: 0.9, frequency: 3 }}
-          style={{ transformOrigin: '100% 100%' }}
-        >
-          <a.div
-            className={`bg-gray-400 fixed  right-0 bottom-0 mr-2 mb-2 ${
-              right ? 'w-16 h-32' : 'w-8 h-8'
-            }`}
-          ></a.div>
-        </Move>
-        <p>stuff</p>
-      </div>
-    </DefaultLayout>
+    <div className="min-h-screen bg-gray-100 p-4">
+      <button onClick={() => setBig(b => !b)}>big</button>
+      <Animate flipKey={big}>
+        <a.div className={`${big ? 'w-16 h-16' : 'w-8 h-8'} bg-gray-800`} />
+      </Animate>
+    </div>
   );
 };
+
+// const Stuff = () => {
+//   const [right, setRight] = useState(false);
+
+//   return (
+//     <DefaultLayout pageTitle="Stuff">
+//       <div className="container mx-auto pt-4">
+//         <button
+//           onClick={() => {
+//             setRight(right => !right);
+//           }}
+//         >
+//           switch
+//         </button>
+
+//         {/* <motion.div
+//           animate
+//           transition={{
+//             duration: 3,
+//           }}
+//           className={`bg-gray-400 fixed right-0 bottom-0 mr-2 mb-2 ${
+//             right ? ' w-16 h-32' : 'w-8 h-8'
+//           }`}
+//           style={{ transformOrigin: '50% 50%' }}
+//         ></motion.div> */}
+
+//         {/* <Flipper flipKey={right}>
+//           <Flipped
+//             flipId="chatwala"
+//             spring={{
+//               stiffness: 100,
+//             }}
+//           >
+//             <div
+//               className={`bg-gray-400 fixed right-0 bottom-0 mr-2 mb-2 ${
+//                 right ? 'w-16 h-32' : 'w-8 h-8'
+//               }`}
+//               style={{ transformOrigin: '50% 50%' }}
+//             ></div>
+//           </Flipped>
+//         </Flipper> */}
+//         <Move
+//           id="chatwala"
+//           moveKey={right}
+//           config={{ damping: 0.9, frequency: 3 }}
+//           style={{ transformOrigin: '100% 100%' }}
+//         >
+//           <a.div
+//             className={`bg-gray-400 fixed  right-0 bottom-0 mr-2 mb-2 ${
+//               right ? 'w-16 h-32' : 'w-8 h-8'
+//             }`}
+//           ></a.div>
+//         </Move>
+//         <p>stuff</p>
+//       </div>
+//     </DefaultLayout>
+//   );
+// };
 
 // const Stuff = () => {
 //   const [right, setRight] = useState(false);
