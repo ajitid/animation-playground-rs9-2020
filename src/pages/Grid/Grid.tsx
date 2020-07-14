@@ -46,7 +46,7 @@ const Grid: React.FC = () => {
               key={x}
               itemId={x.toString()}
               xUnit={x === 6 ? 2 : 1}
-              // yUnit={x === 3 ? 2 : 1}
+              yUnit={x === 3 ? 2 : 1}
               // className="m-3 mt-1"
               className="m-3 "
             >

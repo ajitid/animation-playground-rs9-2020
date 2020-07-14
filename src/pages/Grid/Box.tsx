@@ -1,25 +1,18 @@
-import React, { useRef, useCallback, useContext } from 'react';
-import useResizeHandle from './useResizeHandle';
-import { PackingGridContext } from './PackingGrid';
-import useDragHandle from './useDragHandle';
-import useScaleWithItem from './useScaleWithItem';
+import React, { useRef } from 'react';
+
+import useItem from './useItem';
 
 const Box: React.FC<{ x: number }> = ({ x }) => {
-  const { relayout } = useContext(PackingGridContext);
-
   const resizeHandleRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const height = 32;
 
-  useScaleWithItem(containerRef, height);
-
-  const handleResizeDone = useCallback(() => {
-    relayout();
-  }, [relayout]);
-  useResizeHandle(resizeHandleRef, containerRef, height, handleResizeDone);
-
-  const dragProps = useDragHandle();
+  const { dragProps } = useItem({
+    containerRef,
+    resizeHandleRef,
+    height,
+  });
 
   return (
     <div ref={containerRef} className="relative bg-green-400">
