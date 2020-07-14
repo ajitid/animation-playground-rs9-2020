@@ -25,16 +25,19 @@ const useResizeHandle = (
 
     function handleMouseDown(e: MouseEvent) {
       e.preventDefault();
+      if (handle === null || container === null || item === null) return;
 
       let isFirstResizeDone = false;
       let extraWidth = 0;
       let extraHeight = 0;
 
       let finalSize = {
-        width: container?.getBoundingClientRect().width ?? 0,
-        height: container?.getBoundingClientRect().height ?? 0,
+        width: container.getBoundingClientRect().width ?? 0,
+        height: container.getBoundingClientRect().height ?? 0,
         size: [-1, -1] as [number, number],
       };
+
+      item.style.zIndex = '100';
 
       function resize(e: MouseEvent) {
         if (handle === null || container === null || item === null) return;
@@ -95,10 +98,11 @@ const useResizeHandle = (
       }
 
       function stopResize() {
-        if (container === null) return;
+        if (handle === null || container === null || item === null) return;
 
         container.style.height = `${finalSize.height}px`;
         container.style.width = `${finalSize.width}px`;
+        item.style.zIndex = '0';
 
         setShow(false);
         onResizeDone(finalSize.size);

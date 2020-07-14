@@ -140,7 +140,9 @@ const MovingBox: React.FC = ({ children }) => {
   return (
     <MovingBoxContext.Provider value={{ setShow, setPosition }}>
       {children}
-      {show && <a.div className="bg-blue-700 opacity-25 fixed" style={style} />}
+      {show && (
+        <a.div className="bg-blue-700 opacity-25 fixed" style={{ ...style, zIndex: 100 }} />
+      )}
     </MovingBoxContext.Provider>
   );
 };
