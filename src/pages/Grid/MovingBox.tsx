@@ -1,6 +1,8 @@
-import React, { useState, createContext } from 'react';
+import React, { useState, createContext, useContext, useCallback } from 'react';
 import { useSpring, a, SpringStartFn } from '@react-spring/web';
 import { noop } from 'utils/helpers';
+import { PackingGridContext } from './PackingGrid';
+import { ItemContext } from './Item';
 
 interface RectOptional {
   top?: number;
@@ -14,7 +16,7 @@ interface Options extends RectOptional {
 }
 
 interface SetPositionShape {
-  (options: Options): void;
+  (options: Options, item: HTMLDivElement): void;
 }
 
 export interface MovingBoxContextShape {
@@ -29,6 +31,8 @@ export const MovingBoxContext = createContext<MovingBoxContextShape>({
 });
 
 const MovingBox: React.FC = ({ children }) => {
+  const { gridWidth, cols } = useContext(PackingGridContext);
+
   const [show, setShow] = useState(false);
 
   const [style, set] = useSpring(() => ({
@@ -42,9 +46,42 @@ const MovingBox: React.FC = ({ children }) => {
     },
   }));
 
-  const setPosition: SetPositionShape = options => {
-    set(options);
-  };
+  const setPosition = useCallback<SetPositionShape>(
+    (options, item) => {
+      const computed = getComputedStyle(item);
+      const itemMargins = {
+        top: parseFloat(computed.marginTop.replace('px', '')),
+        bottom: parseFloat(computed.marginBottom.replace('px', '')),
+        left: parseFloat(computed.marginLeft.replace('px', '')),
+        right: parseFloat(computed.marginRight.replace('px', '')),
+      };
+      const itemRect = item.getBoundingClientRect();
+
+      const totalWidth = itemMargins.left + itemRect.width + itemMargins.right;
+
+      if (options.width !== undefined) {
+        const perColWidth = gridWidth / cols;
+        const insideColBoundsWidth = totalWidth % perColWidth;
+        const exceedsFromHalf = insideColBoundsWidth > perColWidth / 2;
+
+        console.log(insideColBoundsWidth, perColWidth);
+
+        if (exceedsFromHalf) {
+          options.width =
+            totalWidth -
+            insideColBoundsWidth +
+            perColWidth -
+            (itemMargins.left + itemMargins.right);
+        } else {
+          options.width =
+            totalWidth - insideColBoundsWidth - (itemMargins.left + itemMargins.right);
+        }
+      }
+
+      set(options);
+    },
+    [cols, gridWidth, set]
+  );
 
   return (
     <MovingBoxContext.Provider value={{ setShow, setPosition }}>
@@ -53,5 +90,7 @@ const MovingBox: React.FC = ({ children }) => {
     </MovingBoxContext.Provider>
   );
 };
+
+const toNearest = (x: number, n: number, y: number) => (n > x + (y - x) / 2 ? y : x);
 
 export default MovingBox;

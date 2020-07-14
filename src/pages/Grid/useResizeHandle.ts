@@ -1,6 +1,7 @@
 import { useEffect, RefObject, useContext } from 'react';
 import { noop } from 'utils/helpers';
 import { MovingBoxContext } from './MovingBox';
+import { ItemContext } from './Item';
 
 const useResizeHandle = (
   handleRef: RefObject<HTMLElement>,
@@ -8,12 +9,14 @@ const useResizeHandle = (
   onResizeDone = noop
 ) => {
   const { setPosition, setShow } = useContext(MovingBoxContext);
+  const { itemRef } = useContext(ItemContext);
 
   useEffect(() => {
     const handle = handleRef.current;
     const container = containerRef.current;
+    const item = itemRef.current;
 
-    if (handle === null || container === null) return;
+    if (handle === null || container === null || item === null) return;
 
     function handleMouseDown(e: MouseEvent) {
       e.preventDefault();
@@ -23,32 +26,43 @@ const useResizeHandle = (
       let extraHeight = 0;
 
       function resize(e: MouseEvent) {
-        if (handle === null || container === null) return;
+        if (handle === null || container === null || item === null) return;
 
-        const rect = container.getBoundingClientRect();
+        const itemRect = item.getBoundingClientRect();
+        const containerRect = container.getBoundingClientRect();
 
         if (!isFirstResizeDone) {
           isFirstResizeDone = true;
-          extraWidth = rect.right - e.pageX;
-          extraHeight = rect.bottom - e.pageY;
+          extraWidth = containerRect.right - e.pageX;
+          extraHeight = containerRect.bottom - e.pageY;
 
-          setPosition({
-            from: {
-              left: rect.left,
-              top: rect.top,
-              height: rect.height,
-              width: rect.width,
+          setPosition(
+            {
+              from: {
+                left: containerRect.left,
+                top: containerRect.top,
+                height: containerRect.height,
+                width: containerRect.width,
+              },
+              left: containerRect.left,
+              top: containerRect.top,
+              height: containerRect.height,
+              width: containerRect.width,
             },
-          });
+            item
+          );
           setShow(true);
         }
 
-        setPosition({
-          left: rect.left,
-          top: rect.top,
-          height: rect.height,
-          width: rect.width,
-        });
+        setPosition(
+          {
+            left: containerRect.left,
+            top: containerRect.top,
+            height: containerRect.height,
+            width: containerRect.width,
+          },
+          item
+        );
 
         const newWidth = e.pageX - container.getBoundingClientRect().left + extraWidth;
         if (newWidth > handle.getBoundingClientRect().width) {
@@ -77,7 +91,7 @@ const useResizeHandle = (
     return () => {
       handle.removeEventListener('mousedown', handleMouseDown);
     };
-  }, [containerRef, handleRef, onResizeDone, setPosition, setShow]);
+  }, [containerRef, handleRef, itemRef, onResizeDone, setPosition, setShow]);
 
   return [handleRef, containerRef];
 };
