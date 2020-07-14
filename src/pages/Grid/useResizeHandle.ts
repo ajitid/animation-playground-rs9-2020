@@ -36,7 +36,7 @@ const useResizeHandle = ({
       e.preventDefault();
       if (handle === null || container === null || item === null) return;
 
-      item.style.zIndex = '100';
+      item.classList.add('muuri-item-resizing');
       onResizeStart();
 
       let isFirstResizeDone = false;
@@ -112,7 +112,7 @@ const useResizeHandle = ({
 
         container.style.height = `${finalSize.height}px`;
         container.style.width = `${finalSize.width}px`;
-        item.style.zIndex = '0';
+        item.classList.remove('muuri-item-resizing');
         setShow(false);
         onResizeDone(finalSize.size);
 

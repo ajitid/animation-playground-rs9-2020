@@ -2,6 +2,11 @@
   z-index: 100;
 }
 
+/* not from Muuri lib, custom */
+.muuri-item-resizing {
+  z-index: 100;
+}
+
 .packing-grid-moving-box {
   z-index: 100;
   background-color: blueviolet;
