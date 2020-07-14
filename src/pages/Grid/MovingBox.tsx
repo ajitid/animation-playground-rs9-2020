@@ -3,6 +3,7 @@ import { useSpring, a, SpringStartFn } from '@react-spring/web';
 import { noop } from 'utils/helpers';
 import { PackingGridContext } from './PackingGrid';
 import { ItemContext } from './Item';
+import clamp from 'flicky/utils/clamp';
 
 interface RectOptional {
   top?: number;
@@ -65,13 +66,12 @@ const MovingBox: React.FC = ({ children }) => {
 
         if (exceedsFromHalf) {
           options.width =
-            totalWidth -
-            insideColBoundsWidth +
-            perColWidth -
+            clamp(0, gridWidth, totalWidth - insideColBoundsWidth + perColWidth) -
             (itemMargins.left + itemMargins.right);
         } else {
           options.width =
-            totalWidth - insideColBoundsWidth - (itemMargins.left + itemMargins.right);
+            clamp(0, gridWidth, totalWidth - insideColBoundsWidth) -
+            (itemMargins.left + itemMargins.right);
         }
       }
 
