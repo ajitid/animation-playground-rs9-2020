@@ -10,12 +10,14 @@ const Box: React.FC<{ x: number }> = ({ x }) => {
   const resizeHandleRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  useScaleWithItem(containerRef, 32);
+  const height = 32;
+
+  useScaleWithItem(containerRef, height);
 
   const handleResizeDone = useCallback(() => {
     relayout();
   }, [relayout]);
-  useResizeHandle(resizeHandleRef, containerRef, handleResizeDone);
+  useResizeHandle(resizeHandleRef, containerRef, height, handleResizeDone);
 
   const dragProps = useDragHandle();
 

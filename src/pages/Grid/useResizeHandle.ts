@@ -6,6 +6,7 @@ import { ItemContext } from './Item';
 const useResizeHandle = (
   handleRef: RefObject<HTMLElement>,
   containerRef: RefObject<HTMLElement>,
+  height: number,
   onResizeDone = noop
 ) => {
   const { setPosition, setShow } = useContext(MovingBoxContext);
@@ -25,10 +26,15 @@ const useResizeHandle = (
       let extraWidth = 0;
       let extraHeight = 0;
 
+      let finalSize = {
+        width: container?.getBoundingClientRect().width ?? 0,
+        height: container?.getBoundingClientRect().height ?? 0,
+      };
+
       function resize(e: MouseEvent) {
         if (handle === null || container === null || item === null) return;
 
-        const itemRect = item.getBoundingClientRect();
+        // const itemRect = item.getBoundingClientRect();
         const containerRect = container.getBoundingClientRect();
 
         if (!isFirstResizeDone) {
@@ -49,20 +55,27 @@ const useResizeHandle = (
               height: containerRect.height,
               width: containerRect.width,
             },
-            item
+            item,
+            height
           );
           setShow(true);
         }
 
-        setPosition(
+        const calculated = setPosition(
           {
             left: containerRect.left,
             top: containerRect.top,
             height: containerRect.height,
             width: containerRect.width,
           },
-          item
+          item,
+          height
         );
+
+        finalSize = {
+          width: calculated.width!,
+          height: calculated.height!,
+        };
 
         const newWidth = e.pageX - container.getBoundingClientRect().left + extraWidth;
         if (newWidth > handle.getBoundingClientRect().width) {
@@ -76,6 +89,11 @@ const useResizeHandle = (
       }
 
       function stopResize() {
+        if (container === null) return;
+
+        container.style.height = `${finalSize.height}px`;
+        container.style.width = `${finalSize.width}px`;
+
         setShow(false);
         onResizeDone();
         window.removeEventListener('pointermove', resize);
@@ -91,7 +109,7 @@ const useResizeHandle = (
     return () => {
       handle.removeEventListener('mousedown', handleMouseDown);
     };
-  }, [containerRef, handleRef, itemRef, onResizeDone, setPosition, setShow]);
+  }, [containerRef, handleRef, height, itemRef, onResizeDone, setPosition, setShow]);
 
   return [handleRef, containerRef];
 };

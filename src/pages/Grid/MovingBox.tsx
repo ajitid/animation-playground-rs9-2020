@@ -16,7 +16,7 @@ interface Options extends RectOptional {
 }
 
 interface SetPositionShape {
-  (options: Options, item: HTMLDivElement): void;
+  (options: Options, item: HTMLDivElement, height: number): Options;
 }
 
 export interface MovingBoxContextShape {
@@ -47,7 +47,7 @@ const MovingBox: React.FC = ({ children }) => {
   }));
 
   const setPosition = useCallback<SetPositionShape>(
-    (options, item) => {
+    (options, item, height) => {
       const computed = getComputedStyle(item);
       const itemMargins = {
         top: parseFloat(computed.marginTop.replace('px', '')),
@@ -57,14 +57,11 @@ const MovingBox: React.FC = ({ children }) => {
       };
       const itemRect = item.getBoundingClientRect();
 
-      const totalWidth = itemMargins.left + itemRect.width + itemMargins.right;
-
       if (options.width !== undefined) {
+        const totalWidth = itemMargins.left + itemRect.width + itemMargins.right;
         const perColWidth = gridWidth / cols;
         const insideColBoundsWidth = totalWidth % perColWidth;
         const exceedsFromHalf = insideColBoundsWidth > perColWidth / 2;
-
-        console.log(insideColBoundsWidth, perColWidth);
 
         if (exceedsFromHalf) {
           options.width =
@@ -78,7 +75,27 @@ const MovingBox: React.FC = ({ children }) => {
         }
       }
 
+      if (options.height !== undefined) {
+        const totalHeight = itemMargins.top + itemRect.height + itemMargins.bottom;
+        const perColHeight = itemMargins.top + height + itemMargins.bottom;
+        const insideColBoundsHeight = totalHeight % perColHeight;
+        const exceedsFromHalf = insideColBoundsHeight > perColHeight / 2;
+
+        if (exceedsFromHalf) {
+          options.height =
+            totalHeight -
+            insideColBoundsHeight +
+            perColHeight -
+            (itemMargins.top + itemMargins.bottom);
+        } else {
+          options.height =
+            totalHeight - insideColBoundsHeight - (itemMargins.top + itemMargins.bottom);
+        }
+      }
+
       set(options);
+
+      return options;
     },
     [cols, gridWidth, set]
   );
