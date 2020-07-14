@@ -2,8 +2,9 @@ import { useCallback, RefObject, useContext } from 'react';
 
 import useScaleWithItem from './useScaleWithItem';
 import { PackingGridContext } from './PackingGrid';
-import useResizeHandle from './useResizeHandle';
+import useResizeHandle, { OnResizeDoneShape } from './useResizeHandle';
 import useDragHandle from './useDragHandle';
+import { ItemContext } from './Item';
 
 interface UseItemOptions {
   height: number;
@@ -12,13 +13,18 @@ interface UseItemOptions {
 }
 
 const useItem = ({ containerRef, height, resizeHandleRef }: UseItemOptions) => {
-  const { relayout } = useContext(PackingGridContext);
+  const { relayout, onResize } = useContext(PackingGridContext);
+  const { itemId } = useContext(ItemContext);
 
   useScaleWithItem(containerRef, height);
 
-  const handleResizeDone = useCallback(() => {
-    relayout();
-  }, [relayout]);
+  const handleResizeDone = useCallback<OnResizeDoneShape>(
+    pos => {
+      relayout();
+      onResize(itemId, pos);
+    },
+    [itemId, onResize, relayout]
+  );
   useResizeHandle(resizeHandleRef, containerRef, height, handleResizeDone);
 
   const dragProps = useDragHandle();

@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 
 import DefaultLayout from 'layouts/DefaultLayout';
 
-import PackingGrid from './PackingGrid';
+import PackingGrid, { OnResizeShape } from './PackingGrid';
 import Item from './Item';
 import Box from './Box';
 
@@ -28,6 +28,10 @@ const Grid: React.FC = () => {
     });
   };
 
+  const handleResize = useCallback<OnResizeShape>((itemId, pos) => {
+    console.log(itemId, pos);
+  }, []);
+
   return (
     <DefaultLayout pageTitle="Grid">
       <div className="container mx-auto pt-4">
@@ -40,7 +44,7 @@ const Grid: React.FC = () => {
             remove 3rd box
           </button>
         </div>
-        <PackingGrid cols={cols} onLayoutChange={handleOrderChange}>
+        <PackingGrid cols={cols} onLayoutChange={handleOrderChange} onResize={handleResize}>
           {l.map(x => (
             <Item
               key={x}

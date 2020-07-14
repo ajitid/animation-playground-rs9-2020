@@ -12,12 +12,14 @@ interface ItemContextShape {
   itemRef: MutableRefObject<HTMLDivElement | null>;
   xUnit: number;
   yUnit: number;
+  itemId: string;
 }
 
 export const ItemContext = createContext<ItemContextShape>({
   itemRef: { current: null },
   xUnit: 1,
   yUnit: 1,
+  itemId: '',
 });
 
 type ElAttrs = Pick<React.HTMLAttributes<HTMLDivElement>, 'className' | 'style'>;
@@ -57,7 +59,7 @@ const Item: React.FC<ItemProps> = ({
       className={`${className ?? ''} absolute`}
       style={style}
     >
-      <ItemContext.Provider value={{ itemRef, xUnit, yUnit }}>
+      <ItemContext.Provider value={{ itemRef, xUnit, yUnit, itemId }}>
         {children}
       </ItemContext.Provider>
     </div>

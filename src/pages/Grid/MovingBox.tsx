@@ -16,8 +16,12 @@ interface Options extends RectOptional {
   from?: RectOptional;
 }
 
+interface SetPositionReturnShape extends Options {
+  size: [number, number];
+}
+
 interface SetPositionShape {
-  (options: Options, item: HTMLDivElement, height: number): Options;
+  (options: Options, item: HTMLDivElement, height: number): SetPositionReturnShape;
 }
 
 export interface MovingBoxContextShape {
@@ -49,7 +53,7 @@ const MovingBox: React.FC = ({ children }) => {
 
   const setPosition = useCallback<SetPositionShape>(
     (options, item, height) => {
-      if (gridElRef.current === null) return options;
+      if (gridElRef.current === null) return { ...options, size: [1, 1] };
 
       const computed = getComputedStyle(item);
       const itemMargins = {
@@ -109,7 +113,7 @@ const MovingBox: React.FC = ({ children }) => {
 
       set(options);
 
-      return options;
+      return { ...options, size: [1, 1] };
     },
     [cols, gridElRef, gridWidth, set]
   );

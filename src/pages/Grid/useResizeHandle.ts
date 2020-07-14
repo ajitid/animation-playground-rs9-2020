@@ -3,11 +3,15 @@ import { noop } from 'utils/helpers';
 import { MovingBoxContext } from './MovingBox';
 import { ItemContext } from './Item';
 
+export interface OnResizeDoneShape {
+  (size: [number, number]): void;
+}
+
 const useResizeHandle = (
   handleRef: RefObject<HTMLElement>,
   containerRef: RefObject<HTMLElement>,
   height: number,
-  onResizeDone = noop
+  onResizeDone: OnResizeDoneShape = noop
 ) => {
   const { setPosition, setShow } = useContext(MovingBoxContext);
   const { itemRef } = useContext(ItemContext);
@@ -29,6 +33,7 @@ const useResizeHandle = (
       let finalSize = {
         width: container?.getBoundingClientRect().width ?? 0,
         height: container?.getBoundingClientRect().height ?? 0,
+        size: [1, 1],
       };
 
       function resize(e: MouseEvent) {
@@ -75,6 +80,7 @@ const useResizeHandle = (
         finalSize = {
           width: calculated.width!,
           height: calculated.height!,
+          size: calculated.size,
         };
 
         const newWidth = e.pageX - container.getBoundingClientRect().left + extraWidth;
@@ -95,7 +101,7 @@ const useResizeHandle = (
         container.style.width = `${finalSize.width}px`;
 
         setShow(false);
-        onResizeDone();
+        onResizeDone([1, 1]);
         window.removeEventListener('pointermove', resize);
         window.removeEventListener('pointerup', stopResize);
       }

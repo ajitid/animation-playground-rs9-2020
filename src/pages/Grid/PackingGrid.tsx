@@ -18,6 +18,7 @@ interface PackingGridContextShape {
   cols: number;
   gridWidth: number;
   elRef: RefObject<HTMLDivElement>;
+  onResize: (itemId: string, size: [number, number]) => void;
 }
 
 export const PackingGridContext = createContext<PackingGridContextShape>({
@@ -28,12 +29,18 @@ export const PackingGridContext = createContext<PackingGridContextShape>({
   elRef: {
     current: null,
   },
+  onResize: noop,
 });
+
+export interface OnResizeShape {
+  (itemId: string, pos: [number, number]): void;
+}
 
 const PackingGrid: React.FC<{
   onLayoutChange?: (itemsId: Array<string>) => void;
+  onResize?: OnResizeShape;
   cols: number;
-}> = ({ children, onLayoutChange = noop, cols }) => {
+}> = ({ children, onLayoutChange = noop, cols, onResize = noop }) => {
   const elRef = useRef<HTMLDivElement>(null);
   const [grid, setGrid] = useState<Muuri | null>(null);
 
@@ -92,7 +99,9 @@ const PackingGrid: React.FC<{
   });
 
   return (
-    <PackingGridContext.Provider value={{ grid, relayout, cols, gridWidth, elRef }}>
+    <PackingGridContext.Provider
+      value={{ grid, relayout, cols, gridWidth, elRef, onResize }}
+    >
       <MovingBox>
         <div ref={elRef} style={{ position: 'relative' }} className="bg-gray-300 w-64">
           {children}
