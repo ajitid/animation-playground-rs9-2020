@@ -1,8 +1,7 @@
 import React, { useState, createContext, useContext, useCallback } from 'react';
-import { useSpring, a, SpringStartFn } from '@react-spring/web';
+import { useSpring, a } from '@react-spring/web';
 import { noop } from 'utils/helpers';
 import { PackingGridContext } from './PackingGrid';
-import { ItemContext } from './Item';
 import clamp from 'flicky/utils/clamp';
 
 interface RectOptional {
@@ -140,9 +139,7 @@ const MovingBox: React.FC = ({ children }) => {
   return (
     <MovingBoxContext.Provider value={{ setShow, setPosition }}>
       {children}
-      {show && (
-        <a.div className="bg-blue-700 opacity-25 fixed" style={{ ...style, zIndex: 100 }} />
-      )}
+      {show && <a.div className="packing-grid-moving-box fixed" style={style} />}
     </MovingBoxContext.Provider>
   );
 };

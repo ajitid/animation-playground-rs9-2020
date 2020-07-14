@@ -1,3 +1,9 @@
 .muuri-item-dragging {
   z-index: 100;
 }
+
+.packing-grid-moving-box {
+  z-index: 100;
+  background-color: blueviolet;
+  opacity: 25%;
+}
