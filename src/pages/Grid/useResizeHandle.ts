@@ -33,7 +33,7 @@ const useResizeHandle = (
       let finalSize = {
         width: container?.getBoundingClientRect().width ?? 0,
         height: container?.getBoundingClientRect().height ?? 0,
-        size: [1, 1],
+        size: [-1, -1] as [number, number],
       };
 
       function resize(e: MouseEvent) {
@@ -101,7 +101,7 @@ const useResizeHandle = (
         container.style.width = `${finalSize.width}px`;
 
         setShow(false);
-        onResizeDone([1, 1]);
+        onResizeDone(finalSize.size);
         window.removeEventListener('pointermove', resize);
         window.removeEventListener('pointerup', stopResize);
       }

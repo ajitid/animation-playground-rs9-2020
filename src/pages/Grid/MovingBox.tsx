@@ -53,7 +53,7 @@ const MovingBox: React.FC = ({ children }) => {
 
   const setPosition = useCallback<SetPositionShape>(
     (options, item, height) => {
-      if (gridElRef.current === null) return { ...options, size: [1, 1] };
+      if (gridElRef.current === null) return { ...options, size: [-1, -1] };
 
       const computed = getComputedStyle(item);
       const itemMargins = {
@@ -72,7 +72,7 @@ const MovingBox: React.FC = ({ children }) => {
 
         const { left: gridLeft } = gridElRef.current.getBoundingClientRect();
         const colNo =
-          Math.floor((itemRect.left - itemMargins.left - gridLeft) / perColWidth) + 1;
+          Math.round((itemRect.left - itemMargins.left - gridLeft) / perColWidth) + 1;
 
         if (exceedsFromHalf) {
           options.width =
@@ -113,7 +113,26 @@ const MovingBox: React.FC = ({ children }) => {
 
       set(options);
 
-      return { ...options, size: [1, 1] };
+      const { left: gridLeft } = gridElRef.current.getBoundingClientRect();
+      const perColWidth = gridWidth / cols;
+      const colNo =
+        Math.round((itemRect.left - itemMargins.left - gridLeft) / perColWidth) + 1;
+
+      return {
+        ...options,
+        size: [
+          clamp(
+            1,
+            cols - colNo + 1,
+            Math.round(
+              (itemMargins.left + itemRect.width + itemMargins.right) / (gridWidth / cols)
+            )
+          ),
+          Math.round(
+            (itemRect.height - height) / (height + itemMargins.top + itemMargins.bottom)
+          ) + 1,
+        ],
+      };
     },
     [cols, gridElRef, gridWidth, set]
   );
