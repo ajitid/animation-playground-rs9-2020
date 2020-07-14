@@ -46,19 +46,25 @@ const Grid: React.FC = () => {
 
   return (
     <DefaultLayout pageTitle="Grid">
-      <PackingGrid cols={4} onResize={handleItemResize} onLayoutChange={handleLayoutChange}>
-        {boxes.map(box => (
-          <Item
-            key={box.boxKey}
-            itemId={box.boxKey}
-            xUnit={box.xUnit}
-            yUnit={box.yUnit}
-            className="m-3"
-          >
-            <Box x={parseInt(box.boxKey)} />
-          </Item>
-        ))}
-      </PackingGrid>
+      <div className="bg-gray-300">
+        <PackingGrid
+          cols={4}
+          onResize={handleItemResize}
+          onLayoutChange={handleLayoutChange}
+        >
+          {boxes.map(box => (
+            <Item
+              key={box.boxKey}
+              itemId={box.boxKey}
+              xUnit={box.xUnit}
+              yUnit={box.yUnit}
+              className="m-3"
+            >
+              <Box x={parseInt(box.boxKey)} />
+            </Item>
+          ))}
+        </PackingGrid>
+      </div>
     </DefaultLayout>
   );
 };
