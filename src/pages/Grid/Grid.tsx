@@ -7,67 +7,92 @@ import Item from './Item';
 import Box from './Box';
 
 const Grid: React.FC = () => {
-  const [l, setL] = useState(() => [1, 2, 3, 4, 5, 6, 7, 8, 9]);
+  const [boxes, setBoxes] = useState<
+    Array<{
+      boxKey: string;
+      xUnit: number;
+      yUnit: number;
+    }>
+  >(() => initialBoxData);
 
-  const handleOrderChange = useCallback((keys: string[]) => {
-    console.log('happened', keys);
-    const l = keys.map(x => parseInt(x, 10));
-    setL(l);
+  const handleItemResize = useCallback<OnResizeShape>((itemId, size) => {
+    if (size[0] === -1 || size[1] === -1) return;
+    setBoxes(prevBoxes => {
+      const boxes = [...prevBoxes];
+      const idx = boxes.findIndex(box => box.boxKey === itemId);
+      if (idx === -1) return prevBoxes;
+      boxes[idx] = {
+        ...boxes[idx],
+        xUnit: size[0],
+        yUnit: size[1],
+      };
+      return boxes;
+    });
   }, []);
 
-  const [cols, setCols] = useState(4);
-  const changeCols = () => {
-    setCols(cols => (cols === 3 ? 4 : 3));
-  };
-
-  const removeInBw = () => {
-    setL(prevL => {
-      const l = [...prevL];
-      l.splice(2, 1);
-      return l;
+  const handleLayoutChange = useCallback((itemIds: Array<string>) => {
+    setBoxes(prevBoxes => {
+      const boxes = [...prevBoxes];
+      const newBoxes = itemIds
+        .map(itemId => boxes.find(box => box.boxKey === itemId) ?? null)
+        .filter(box => box !== null) as Array<{
+        boxKey: string;
+        xUnit: number;
+        yUnit: number;
+      }>;
+      return newBoxes;
     });
-  };
-
-  // const [sizes, setSizes] = useState(() => [...new Array(9)].map(e => [1, 1]));
-
-  const handleResize = useCallback<OnResizeShape>((itemId, pos) => {
-    // setSizes(prevSizes => {
-    //   const sizes = [...prevSizes];
-    //   sizes[parseInt(itemId) - 1] = pos;
-    //   return sizes;
-    // });
-    console.log(itemId, pos);
   }, []);
 
   return (
     <DefaultLayout pageTitle="Grid">
-      <div className="container mx-auto pt-4">
-        <div>{cols} cols</div>
-        <div className="mt-2 mb-4">
-          <button onClick={changeCols} className="px-2 py-1 rounded bg-gray-300 mr-3">
-            change cols
-          </button>
-          <button onClick={removeInBw} className="px-2 py-1 rounded bg-gray-300">
-            remove 3rd box
-          </button>
-        </div>
-        <PackingGrid cols={cols} onLayoutChange={handleOrderChange} onResize={handleResize}>
-          {l.map((x, i) => (
-            <Item
-              key={x}
-              itemId={x.toString()}
-              // xUnit={sizes[i][0]}
-              // yUnit={sizes[i][1]}
-              // className="m-3 mt-1"
-              className="m-3 "
-            >
-              <Box x={x} />
-            </Item>
-          ))}
-        </PackingGrid>
-      </div>
+      <PackingGrid cols={4} onResize={handleItemResize} onLayoutChange={handleLayoutChange}>
+        {boxes.map(box => (
+          <Item
+            key={box.boxKey}
+            itemId={box.boxKey}
+            xUnit={box.xUnit}
+            yUnit={box.yUnit}
+            className="m-3"
+          >
+            <Box x={parseInt(box.boxKey)} />
+          </Item>
+        ))}
+      </PackingGrid>
     </DefaultLayout>
   );
 };
+
+const initialBoxData: Array<{
+  boxKey: string;
+  xUnit: number;
+  yUnit: number;
+}> = [
+  {
+    boxKey: '1',
+    xUnit: 1,
+    yUnit: 1,
+  },
+  {
+    boxKey: '2',
+    xUnit: 1,
+    yUnit: 1,
+  },
+  {
+    boxKey: '3',
+    xUnit: 1,
+    yUnit: 1,
+  },
+  {
+    boxKey: '4',
+    xUnit: 1,
+    yUnit: 1,
+  },
+  {
+    boxKey: '5',
+    xUnit: 1,
+    yUnit: 1,
+  },
+];
 
 export default Grid;

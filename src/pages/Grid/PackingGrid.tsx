@@ -39,7 +39,7 @@ export interface OnResizeShape {
 }
 
 const PackingGrid: React.FC<{
-  onLayoutChange?: (itemsId: Array<string>) => void;
+  onLayoutChange?: (itemIds: Array<string>) => void;
   onResize?: OnResizeShape;
   cols: number;
 }> = ({ children, onLayoutChange = noop, cols, onResize = noop }) => {
