@@ -28,7 +28,14 @@ const Grid: React.FC = () => {
     });
   };
 
+  // const [sizes, setSizes] = useState(() => [...new Array(9)].map(e => [1, 1]));
+
   const handleResize = useCallback<OnResizeShape>((itemId, pos) => {
+    // setSizes(prevSizes => {
+    //   const sizes = [...prevSizes];
+    //   sizes[parseInt(itemId) - 1] = pos;
+    //   return sizes;
+    // });
     console.log(itemId, pos);
   }, []);
 
@@ -45,12 +52,12 @@ const Grid: React.FC = () => {
           </button>
         </div>
         <PackingGrid cols={cols} onLayoutChange={handleOrderChange} onResize={handleResize}>
-          {l.map(x => (
+          {l.map((x, i) => (
             <Item
               key={x}
               itemId={x.toString()}
-              xUnit={x === 6 ? 2 : 1}
-              yUnit={x === 3 ? 2 : 1}
+              // xUnit={sizes[i][0]}
+              // yUnit={sizes[i][1]}
               // className="m-3 mt-1"
               className="m-3 "
             >

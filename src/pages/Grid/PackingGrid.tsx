@@ -12,6 +12,8 @@ import useDimensions from 'react-cool-dimensions';
 import { noop } from 'utils/helpers';
 import MovingBox from './MovingBox';
 
+import './packing-grid.css';
+
 interface PackingGridContextShape {
   grid: Muuri | null;
   relayout: () => void;
