@@ -7,12 +7,21 @@ export interface OnResizeDoneShape {
   (size: [number, number]): void;
 }
 
-const useResizeHandle = (
-  handleRef: RefObject<HTMLElement>,
-  containerRef: RefObject<HTMLElement>,
-  height: number,
-  onResizeDone: OnResizeDoneShape = noop
-) => {
+interface UseResizeHandleAttrsShape {
+  handleRef: RefObject<HTMLElement>;
+  containerRef: RefObject<HTMLElement>;
+  height: number;
+  onResizeStart?: Function;
+  onResizeDone?: OnResizeDoneShape;
+}
+
+const useResizeHandle = ({
+  handleRef,
+  containerRef,
+  height,
+  onResizeStart = noop,
+  onResizeDone = noop,
+}: UseResizeHandleAttrsShape) => {
   const { setPosition, setShow } = useContext(MovingBoxContext);
   const { itemRef } = useContext(ItemContext);
 
@@ -27,6 +36,9 @@ const useResizeHandle = (
       e.preventDefault();
       if (handle === null || container === null || item === null) return;
 
+      item.style.zIndex = '100';
+      onResizeStart();
+
       let isFirstResizeDone = false;
       let extraWidth = 0;
       let extraHeight = 0;
@@ -36,8 +48,6 @@ const useResizeHandle = (
         height: container.getBoundingClientRect().height ?? 0,
         size: [-1, -1] as [number, number],
       };
-
-      item.style.zIndex = '100';
 
       function resize(e: MouseEvent) {
         if (handle === null || container === null || item === null) return;
@@ -103,9 +113,9 @@ const useResizeHandle = (
         container.style.height = `${finalSize.height}px`;
         container.style.width = `${finalSize.width}px`;
         item.style.zIndex = '0';
-
         setShow(false);
         onResizeDone(finalSize.size);
+
         window.removeEventListener('pointermove', resize);
         window.removeEventListener('pointerup', stopResize);
       }
@@ -119,7 +129,16 @@ const useResizeHandle = (
     return () => {
       handle.removeEventListener('mousedown', handleMouseDown);
     };
-  }, [containerRef, handleRef, height, itemRef, onResizeDone, setPosition, setShow]);
+  }, [
+    containerRef,
+    handleRef,
+    height,
+    itemRef,
+    onResizeDone,
+    onResizeStart,
+    setPosition,
+    setShow,
+  ]);
 
   return [handleRef, containerRef];
 };
