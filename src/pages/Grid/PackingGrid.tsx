@@ -105,7 +105,7 @@ const PackingGrid: React.FC<{
       value={{ grid, relayout, cols, gridWidth, elRef, onResize }}
     >
       <MovingBox>
-        <div ref={elRef} style={{ position: 'relative' }} className="bg-gray-300 w-64">
+        <div ref={elRef} style={{ position: 'relative' }} className="bg-gray-300 ">
           {children}
         </div>
       </MovingBox>

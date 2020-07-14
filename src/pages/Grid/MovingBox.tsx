@@ -77,7 +77,7 @@ const MovingBox: React.FC = ({ children }) => {
         if (exceedsFromHalf) {
           options.width =
             clamp(
-              0,
+              perColWidth,
               gridWidth - (colNo - 1) * perColWidth,
               totalWidth - insideColBoundsWidth + perColWidth
             ) -
@@ -85,7 +85,7 @@ const MovingBox: React.FC = ({ children }) => {
         } else {
           options.width =
             clamp(
-              0,
+              perColWidth,
               gridWidth - (colNo - 1) * perColWidth,
               totalWidth - insideColBoundsWidth
             ) -
