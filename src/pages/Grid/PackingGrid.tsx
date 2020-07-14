@@ -1,4 +1,11 @@
-import React, { useRef, useState, createContext, useEffect, useCallback } from 'react';
+import React, {
+  useRef,
+  useState,
+  createContext,
+  useEffect,
+  useCallback,
+  RefObject,
+} from 'react';
 import Muuri, { Item } from 'muuri';
 import useDimensions from 'react-cool-dimensions';
 
@@ -10,6 +17,7 @@ interface PackingGridContextShape {
   relayout: () => void;
   cols: number;
   gridWidth: number;
+  elRef: RefObject<HTMLDivElement>;
 }
 
 export const PackingGridContext = createContext<PackingGridContextShape>({
@@ -17,6 +25,9 @@ export const PackingGridContext = createContext<PackingGridContextShape>({
   relayout: noop,
   cols: 1,
   gridWidth: 0,
+  elRef: {
+    current: null,
+  },
 });
 
 const PackingGrid: React.FC<{
@@ -81,7 +92,7 @@ const PackingGrid: React.FC<{
   });
 
   return (
-    <PackingGridContext.Provider value={{ grid, relayout, cols, gridWidth }}>
+    <PackingGridContext.Provider value={{ grid, relayout, cols, gridWidth, elRef }}>
       <MovingBox>
         <div ref={elRef} style={{ position: 'relative' }} className="bg-gray-300 w-64">
           {children}
