@@ -33,7 +33,7 @@ export const PackingGridContext = createContext<PackingGridContextShape>({
 });
 
 export interface OnResizeShape {
-  (itemId: string, pos: [number, number]): void;
+  (itemId: string, size: [number, number]): void;
 }
 
 const PackingGrid: React.FC<{
