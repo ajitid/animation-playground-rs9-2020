@@ -96,9 +96,7 @@ const PackingGrid: React.FC<{
     grid.refreshItems().layout();
   }, [grid]);
 
-  const { width: gridWidth } = useDimensions(elRef, {
-    useBorderBoxSize: true,
-  });
+  const { width: gridWidth } = useDimensions({ ref: elRef });
 
   return (
     <PackingGridContext.Provider

@@ -2,6 +2,10 @@
   z-index: 100;
 }
 
+.muuri-item-releasing {
+  z-index: 100;
+}
+
 /* not from Muuri lib, custom */
 .muuri-item-resizing {
   z-index: 100;
