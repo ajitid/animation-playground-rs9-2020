@@ -10,7 +10,6 @@ const Box: React.FC<{ x: number }> = ({ x }) => {
 
   const [isResizing, setIsResizing] = useState(false);
   const onResizeStart = useCallback(() => {
-    console.log('started');
     setIsResizing(true);
   }, []);
   const onResizeDone = useCallback(() => {
