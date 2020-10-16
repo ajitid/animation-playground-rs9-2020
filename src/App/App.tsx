@@ -6,9 +6,10 @@ import 'services/setup';
 import 'styles/tailwind.css';
 // import 'styles/debug.css';
 
-import MoveProvider from 'flicky/utils/move/MoveProvider';
+import MoveProvider from 'flicky/move/MoveProvider';
 import Home from 'pages/Home';
 import Grid from 'pages/Grid';
+import Grid2 from 'pages/Grid2';
 import Mount from 'pages/Mount';
 import Slider from 'pages/Slider';
 import Keyframes from 'pages/Keyframes';
@@ -29,6 +30,9 @@ import DragDrop from 'pages/DragDrop';
 import FlickMotion from 'pages/FlickMotion';
 import Stuff from 'pages/Stuff';
 import Stuff2 from 'pages/Stuff2';
+import KeepAlive from 'elements/KeepAlive';
+import KeepingAlive from 'pages/KeepingAlive';
+import InfScroll from 'pages/InfScroll';
 
 function App() {
   return (
@@ -102,6 +106,15 @@ function App() {
             </Route>
             <Route exact path="/grid">
               <Grid />
+            </Route>
+            <Route exact path="/grid-2">
+              <Grid2 />
+            </Route>
+            <Route exact path="/keeping-alive">
+              <KeepingAlive />
+            </Route>
+            <Route exact path="/inf-scroll">
+              <InfScroll />
             </Route>
             <Route path="*">
               <h1>Not Found</h1>

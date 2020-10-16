@@ -1,7 +1,7 @@
 import { createContext } from 'react';
 
 import { Position } from './types';
-import noop from '../noop';
+import noop from '../utils/noop';
 
 interface MoveContextShape {
   getCachedPosition: (id: string | number) => Position | null;

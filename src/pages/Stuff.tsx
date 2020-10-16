@@ -1,26 +1,106 @@
-import React, { useState, useRef } from 'react';
-import { a, useSpring } from '@react-spring/web';
+import React, { useState, useRef, useEffect, useMemo } from 'react';
+import { a, useSpring, useTransition } from '@react-spring/web';
 import { Flipper, Flipped } from 'react-flip-toolkit';
-import { motion, AnimateSharedLayout } from 'framer-motion';
 
-import useMove from 'flicky/utils/move/useMove';
-import Move from 'flicky/utils/move/Move';
+import useMove from 'flicky/move/useMove';
+import Move from 'flicky/move/Move';
 import DefaultLayout from 'layouts/DefaultLayout';
 import Link from 'elements/atoms/Link';
 import Animate from 'flicky/PataNahi';
+import Button from 'elements/atoms/Button';
 
-const Stuff: React.FC = () => {
-  const [big, setBig] = useState(false);
+let x = {
+  b: [1, 2, 3],
+};
+
+const Stuff = () => {
+  const [, setBoolean] = useState(false);
+  const [v, setArr] = useState(x.b);
+
+  const toggle = () => {
+    setBoolean(b => !b);
+  };
+
+  const change = () => {
+    x.b[2] = 4;
+  };
+
+  const push = () => {
+    setArr(x => [...x, 7]);
+  };
+
+  console.log(v);
 
   return (
-    <div className="min-h-screen bg-gray-100 p-4">
-      <button onClick={() => setBig(b => !b)}>big</button>
-      <Animate flipKey={big}>
-        <a.div className={`${big ? 'w-16 h-16' : 'w-8 h-8'} bg-gray-800`} />
-      </Animate>
+    <div className="container mx-auto py-4">
+      <button onClick={toggle}>toggle</button>
+      <button onClick={change}>change</button>
+      <button onClick={push}>push</button>
+      {v}
     </div>
   );
 };
+
+// const S = {
+//   Stuff,
+//   // increment: () => Stuff.setCounter(c => c + 1);
+// }
+
+// const Stuff: React.FC = () => {
+//   const coords = [
+//     {
+//       x: 0,
+//       y: 0,
+//     },
+//     {
+//       x: 30,
+//       y: 50,
+//     },
+//     {
+//       x: 80,
+//       y: 100,
+//     },
+//     {
+//       x: 30,
+//       y: 50,
+//     },
+//   ];
+
+//   const { v } = useSpring({
+//     from: {
+//       v: 0,
+//     },
+//     v: coords.length - 1,
+//     config: {
+//       duration: coords.length * 1000,
+//     },
+//   });
+
+//   return (
+//     <div className="min-h-screen bg-gray-100 p-4">
+//       <a.div
+//         style={{
+//           x: v.to(v => coords[Math.round(v)].x),
+//           y: v.to(v => coords[Math.round(v)].y),
+//         }}
+//         className="w-32 h-32 bg-orange-500"
+//       />
+//     </div>
+//   );
+// };
+
+// const Stuff: React.FC = () => {
+//   const [big, setBig] = useState(false);
+
+//   return (
+//     <div className="min-h-screen bg-gray-100 p-4">
+//       <button onClick={() => setBig(b => !b)}>big</button>
+//       <Animate flipKey={big}>
+//         <a.div className={`${big ? 'w-16 h-16' : 'w-8 h-8'} bg-gray-800`} />
+//       </Animate>
+//     </div>
+//   );
+// };
 
 // const Stuff = () => {
 //   const [right, setRight] = useState(false);
