@@ -1,7 +1,5 @@
 import React, { CSSProperties, useEffect, useRef } from 'react';
 
-import useOnScreen from 'hooks/useOnScreen';
-
 interface Props<T> {
   children: React.ReactNode;
   id: T;
